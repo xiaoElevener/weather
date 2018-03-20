@@ -8,5 +8,19 @@ package com.xiao.weather.entity;
  */
 public class Weather {
 
+    /**
+     * 天气现象文字
+     */
+    private String text;
 
+    /**
+     * 天气现象代码
+     */
+    private Integer code;
+
+
+    /**
+     * 气温
+     */
+    private Integer temperature;
 }
