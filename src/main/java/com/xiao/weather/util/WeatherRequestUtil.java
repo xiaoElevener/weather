@@ -1,41 +1,30 @@
 package com.xiao.weather.util;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.sun.jndi.toolkit.url.Uri;
 import com.xiao.weather.config.XinZhiConfig;
-import com.xiao.weather.constant.Api;
-import com.xiao.weather.vo.NowWeatherVO;
-import com.xiao.weather.vo.ResultVO;
+import com.xiao.weather.vo.XinZhiResultVO;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.Map;
-
-import static java.lang.System.out;
 
 /**
  * @author xiao_elevener
  * @date 2018-03-19 23:29
  */
 @Slf4j
-public class WeatherRequetUtil<T> {
+@Component
+public class WeatherRequestUtil {
 
     private ClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
     private RestTemplate restTemplate = new RestTemplate(factory);
@@ -60,17 +49,19 @@ public class WeatherRequetUtil<T> {
      */
     private final String HanYu = "zh-Hans";
 
+    @Autowired
+    private XinZhiConfig xinZhiConfig;
+
     private  String getRequestUrl(String apiUrl) {
         long current = System.currentTimeMillis();
-        String param = "ts=" + current + "&ttl=" + TTL + "&uid=" + XinZhiConfig.uid;
+        String param = "ts=" + current + "&ttl=" + TTL + "&uid=" + xinZhiConfig.getUid();
         String signature= null ;
         try {
-            signature = getSignature(param, XinZhiConfig.key);
+            signature = getSignature(param, xinZhiConfig.getKey());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String requestUrl = apiUrl + "?" + param + "&sig=" + signature;
-        return requestUrl;
+        return apiUrl + "?" + param + "&sig=" + signature;
     }
 
 
@@ -82,8 +73,9 @@ public class WeatherRequetUtil<T> {
         return Base64.getEncoder().encodeToString(mac.doFinal(data.getBytes()));
     }
 
-    public  ResultVO<T> request(Api api,Map<String, Object> map){
-        String url = getRequestUrl(api.getUrl());
+
+    public XinZhiResultVO request(String api, Map<String, Object> map){
+        String url = getRequestUrl(api);
         StringBuilder stringBuilder = new StringBuilder(url);
         for(String key:map.keySet()){
             stringBuilder.append("&"+key+"="+ map.get(key).toString());
@@ -93,7 +85,6 @@ public class WeatherRequetUtil<T> {
         
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(resultUrl);
         URI uri = builder.build().encode().toUri();
-        ResultVO<T> vo = restTemplate.getForObject(uri, ResultVO.class);
-        return vo;
+        return  restTemplate.getForObject(uri, XinZhiResultVO.class);
     }
 }

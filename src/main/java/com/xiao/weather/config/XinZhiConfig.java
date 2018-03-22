@@ -1,16 +1,23 @@
 package com.xiao.weather.config;
 
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
 /**
  * 心知天气配置文件
  *
  * @author xiao_elevener
  * @date 2018-03-19 23:22
  */
+@Data
+@ConfigurationProperties(prefix = "xinzhi")
+@Component
 public class XinZhiConfig {
 
-    public static final String uid = "U17A127EEB";
+    private String uid ;
 
-    public static final String key = "swtu8zfjnoqwpfjc";
+    private  String key ;
 
-    public static final String weatherApi = "https://api.seniverse.com/v3/weather/now.json";
+    private String weatherApi ;
 }
