@@ -2,6 +2,7 @@ package com.xiao.weather.controller;
 
 import com.xiao.weather.config.XinZhiConfig;
 import com.xiao.weather.util.WeatherRequestUtil;
+import com.xiao.weather.vo.NowWeatherVO;
 import com.xiao.weather.vo.ResultVO;
 import com.xiao.weather.vo.XinZhiResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class XinZhiController {
     private XinZhiConfig xinZhiConfig;
 
     @Autowired
-    private WeatherRequestUtil weatherRequetUtil;
+    private WeatherRequestUtil weatherRequestUtil;
 
     @GetMapping("/config")
     public XinZhiConfig getConfig(){
@@ -38,7 +39,7 @@ public class XinZhiController {
         Map<String,Object> map = new HashMap<>(1);
         map.put("location",location);
         ResultVO<XinZhiResultVO> resultVO = new ResultVO<>();
-        resultVO.setVo(weatherRequetUtil.request(xinZhiConfig.getWeatherApi(),map));
+        resultVO.setVo(weatherRequestUtil.request(xinZhiConfig.getWeatherApi(), map, NowWeatherVO.class));
         return resultVO;
     }
 

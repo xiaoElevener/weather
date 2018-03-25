@@ -6,6 +6,4 @@ package com.xiao.weather.util;
  */
 public class JsonUtil {
 
-
-
 }

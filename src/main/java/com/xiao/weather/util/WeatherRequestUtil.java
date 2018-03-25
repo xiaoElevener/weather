@@ -1,18 +1,20 @@
 package com.xiao.weather.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.xiao.weather.config.XinZhiConfig;
 import com.xiao.weather.vo.XinZhiResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
@@ -26,8 +28,11 @@ import java.util.Map;
 @Component
 public class WeatherRequestUtil {
 
-    private ClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-    private RestTemplate restTemplate = new RestTemplate(factory);
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private XinZhiConfig xinZhiConfig;
 
     /**
      * 签名失效时间
@@ -49,13 +54,11 @@ public class WeatherRequestUtil {
      */
     private final String HanYu = "zh-Hans";
 
-    @Autowired
-    private XinZhiConfig xinZhiConfig;
 
-    private  String getRequestUrl(String apiUrl) {
+    private String getRequestUrl(String apiUrl) {
         long current = System.currentTimeMillis();
         String param = "ts=" + current + "&ttl=" + TTL + "&uid=" + xinZhiConfig.getUid();
-        String signature= null ;
+        String signature = null;
         try {
             signature = getSignature(param, xinZhiConfig.getKey());
         } catch (Exception e) {
@@ -65,7 +68,7 @@ public class WeatherRequestUtil {
     }
 
 
-    private  String getSignature(String data, String key) throws NoSuchAlgorithmException, InvalidKeyException {
+    private String getSignature(String data, String key) throws NoSuchAlgorithmException, InvalidKeyException {
         byte[] keyBytes = key.getBytes();
         SecretKeySpec signingKey = new SecretKeySpec(keyBytes, HMAC_SHA1);
         Mac mac = Mac.getInstance(HMAC_SHA1);
@@ -74,17 +77,34 @@ public class WeatherRequestUtil {
     }
 
 
-    public XinZhiResultVO request(String api, Map<String, Object> map){
+    public <T> XinZhiResultVO<T> request(String api, Map<String, Object> map, Class<T> clazz) {
+        String resultUrl = buildUrl(api, map);
+        log.info(this.getClass().getName() + " url=" + resultUrl);
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(resultUrl);
+        URI uri = builder.build().encode(StandardCharsets.UTF_8).toUri();
+
+        XinZhiResultVO<T> xinZhiResultVO = null;
+        String result;
+        try {
+            result = restTemplate.getForObject(uri, String.class);
+            xinZhiResultVO = JSON.parseObject(result, new TypeReference<XinZhiResultVO<T>>() {
+            });
+        } catch (HttpClientErrorException e) {
+            log.error("请求天气api报错,e={}", e);
+            e.printStackTrace();
+        }
+        return xinZhiResultVO;
+    }
+
+    private String buildUrl(String api, Map<String, Object> map) {
         String url = getRequestUrl(api);
         StringBuilder stringBuilder = new StringBuilder(url);
-        for(String key:map.keySet()){
-            stringBuilder.append("&"+key+"="+ map.get(key).toString());
+        for (String key : map.keySet()) {
+            stringBuilder.append("&" + key + "=" + map.get(key).toString());
         }
-        String resultUrl =stringBuilder.toString();
-        log.info(this.getClass().getName()+" url="+resultUrl);
-        
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(resultUrl);
-        URI uri = builder.build().encode().toUri();
-        return  restTemplate.getForObject(uri, XinZhiResultVO.class);
+        return stringBuilder.toString();
     }
+
+
 }

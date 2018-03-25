@@ -17,6 +17,8 @@ public class RedisCacheConfigTest extends WeatherApplicationTests{
     public void test(){
         ValueOperations<Object, Object> ops = redisTemplate.opsForValue();
         ops.set("key:user1","user1");
+
+        System.out.println(ops.get("key:user1"));
     }
 
 }
