@@ -1,4 +1,4 @@
-package com.xiao.weather.vo;
+package com.xiao.weather.vo.wechat;
 
 import com.xiao.weather.config.WechatConfig;
 import lombok.Data;

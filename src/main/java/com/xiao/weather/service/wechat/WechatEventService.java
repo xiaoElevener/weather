@@ -1,4 +1,4 @@
-package com.xiao.weather.service;
+package com.xiao.weather.service.wechat;
 
 import weixin.popular.bean.message.EventMessage;
 import weixin.popular.bean.message.message.Message;

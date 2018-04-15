@@ -3,7 +3,7 @@ package com.xiao.weather.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.xiao.weather.config.XinZhiConfig;
-import com.xiao.weather.vo.XinZhiResultVO;
+import com.xiao.weather.vo.weather.XinZhiResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

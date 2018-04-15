@@ -1,5 +1,6 @@
 package com.xiao.weather.service;
 
+import com.xiao.weather.service.weather.WeatherService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

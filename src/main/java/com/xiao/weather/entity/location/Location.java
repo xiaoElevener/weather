@@ -1,4 +1,4 @@
-package com.xiao.weather.entity;
+package com.xiao.weather.entity.location;
 
 import lombok.Data;
 

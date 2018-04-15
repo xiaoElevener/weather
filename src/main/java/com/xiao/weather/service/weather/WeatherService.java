@@ -1,4 +1,4 @@
-package com.xiao.weather.service;
+package com.xiao.weather.service.weather;
 
 public interface WeatherService {
 

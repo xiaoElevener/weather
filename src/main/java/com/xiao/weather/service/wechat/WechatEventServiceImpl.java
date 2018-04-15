@@ -1,6 +1,7 @@
-package com.xiao.weather.service;
+package com.xiao.weather.service.wechat;
 
 import com.xiao.weather.constant.EventKey;
+import com.xiao.weather.service.weather.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import weixin.popular.bean.message.EventMessage;

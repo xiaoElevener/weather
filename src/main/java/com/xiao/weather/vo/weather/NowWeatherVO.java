@@ -1,7 +1,7 @@
-package com.xiao.weather.vo;
+package com.xiao.weather.vo.weather;
 
-import com.xiao.weather.entity.Location;
-import com.xiao.weather.entity.Weather;
+import com.xiao.weather.entity.location.Location;
+import com.xiao.weather.entity.weather.Weather;
 import lombok.Data;
 
 import java.io.Serializable;

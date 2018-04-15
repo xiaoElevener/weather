@@ -1,9 +1,9 @@
-package com.xiao.weather.service;
+package com.xiao.weather.service.weather;
 
 import com.xiao.weather.config.XinZhiConfig;
 import com.xiao.weather.util.WeatherRequestUtil;
-import com.xiao.weather.vo.NowWeatherVO;
-import com.xiao.weather.vo.XinZhiResultVO;
+import com.xiao.weather.vo.weather.NowWeatherVO;
+import com.xiao.weather.vo.weather.XinZhiResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
