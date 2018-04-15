@@ -1,7 +1,5 @@
 package com.xiao.weather.service;
 
-import com.xiao.weather.vo.NowWeatherVO;
-
 public interface WeatherService {
 
     /**
@@ -10,6 +8,6 @@ public interface WeatherService {
      * @param location
      * @return
      */
-    NowWeatherVO getNowWeather(String location);
+    String getNowWeather(String location);
 
 }

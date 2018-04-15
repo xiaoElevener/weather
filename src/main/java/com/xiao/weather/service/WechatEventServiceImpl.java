@@ -1,8 +1,6 @@
 package com.xiao.weather.service;
 
-import com.alibaba.fastjson.JSON;
 import com.xiao.weather.constant.EventKey;
-import com.xiao.weather.vo.NowWeatherVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import weixin.popular.bean.message.EventMessage;
@@ -24,9 +22,8 @@ public class WechatEventServiceImpl implements WechatEventService {
     @Override
     public Message handleEventMessage(EventMessage eventMessage) {
         if (eventMessage.getEventKey().equals(EventKey.NOW_WEATHER.getEventKey())) {
-            NowWeatherVO nowWeatherVO = weatherService.getNowWeather(LOCATION);
-            TextMessage message = new TextMessage(eventMessage.getFromUserName(), JSON.toJSONString(nowWeatherVO.getWeather()));
-            return message;
+            String weather = weatherService.getNowWeather(LOCATION);
+            return new TextMessage(eventMessage.getFromUserName(), weather);
         }
         return null;
     }

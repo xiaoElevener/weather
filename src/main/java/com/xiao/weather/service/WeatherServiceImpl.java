@@ -24,13 +24,15 @@ public class WeatherServiceImpl implements WeatherService {
     private XinZhiConfig xinZhiConfig;
 
     @Override
-    public NowWeatherVO getNowWeather(String location) {
+    public String getNowWeather(String location) {
         Map<String, Object> map = new HashMap<>(1);
         map.put("location", location);
         XinZhiResultVO<NowWeatherVO> vo = weatherRequestUtil.request(xinZhiConfig.getWeatherApi(), map, NowWeatherVO.class);
         if (vo.getResults() == null || vo.getResults().length == 0) {
             return null;
         }
-        return vo.getResults()[0];
+        return vo.getResults()[0].toString();
     }
+
+
 }
