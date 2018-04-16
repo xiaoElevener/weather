@@ -15,6 +15,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;
@@ -26,6 +27,7 @@ import java.util.List;
  * @param <T>
  */
 @Slf4j
+@Component
 public abstract class BaseDao<T extends AbstractEntityBase> implements Dao<T> {
 
     /**
@@ -34,7 +36,6 @@ public abstract class BaseDao<T extends AbstractEntityBase> implements Dao<T> {
     private static final String POSTFIX_SPLIT = ".";
 
     @Autowired
-    @Qualifier("sqlSessionReuse")
     protected SqlSession sqlSession;
 
     private Class<T> entityClass = null;

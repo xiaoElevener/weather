@@ -419,82 +419,6 @@ public class GenerateCode {
         return sb.toString();
     }
 
-
-    /**
-     * 生成batchInsert 语句
-     *
-     * @return
-     */
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    private String genBatchInsert(Class clazz, List<Field> fieldList) {
-        String table = null;
-        String seq_name = null;
-        if (clazz.isAnnotationPresent(DbInfo.class)) {
-            table = ((DbInfo) clazz.getAnnotation(DbInfo.class)).tableName();
-            DbInfo seq = (DbInfo) clazz.getAnnotation(DbInfo.class);
-            seq_name = seq.seqName();
-        } else {
-            String name = clazz.getSimpleName();
-            table = this.className2TableName(name);
-            seq_name = table + "_seq";
-        }
-
-        StringBuffer sb = new StringBuffer();
-
-        sb.append("insert into " + table + "(\n");
-        int index1 = 0;
-        boolean isLastOuterItem1 = false;
-        List<InnerField> totalFieldList = new ArrayList<InnerField>();
-        for (int i = 0; i < fieldList.size(); i++) {
-            Field field = fieldList.get(i);
-            totalFieldList.addAll(getAllFields(field, field.getType(), field.getName()));
-        }
-
-        for (int i = 0; i < totalFieldList.size(); i++) {
-            if (i == totalFieldList.size() - 1) {
-                isLastOuterItem1 = true;
-            }
-            InnerField field = totalFieldList.get(i);
-            sb.append("\t\t<!-- " + index1 + " -->" + field.getColumnName());
-            if (isLastOuterItem1) {
-                sb.append("\n");
-            } else {
-                sb.append(",\n");
-            }
-            index1++;
-        }
-        sb.append("\t\t) \n");
-
-        sb.append("\t\tSELECT " + seq_name + ".NEXTVAL,A.* FROM (\n");
-        sb.append("\t\t<foreach collection=\"list\" item=\"item\" index=\"index\" separator=\"union all\">\n");
-        sb.append("\t\t\tSELECT\n");
-        int index2 = 0;
-        boolean isLastOuterItem2 = false;
-        for (int i = 0; i < totalFieldList.size(); i++) {
-            if (i == totalFieldList.size() - 1) {
-                isLastOuterItem2 = true;
-            }
-            InnerField field = totalFieldList.get(i);
-            String fieldName = field.getName();
-            if ("id".equalsIgnoreCase(fieldName)) {
-                continue;
-            }
-            sb.append("\t\t\t<!-- " + index2 + " -->#{item." + field.getTotalName() + "}");
-            if (isLastOuterItem2) {
-                sb.append("\n");
-            } else {
-                sb.append(",\n");
-            }
-            index2++;
-        }
-        sb.append("\t\t\tFROM DUAL\n");
-        sb.append("\t\t</foreach>\n");
-        sb.append("\t\t) A");
-        // System.out.println(sb.toString());
-        return sb.toString();
-    }
-
-
     private String className2TableName(String name) {
         String[] tempArry = name.split("");
         StringBuffer sb = new StringBuffer();
@@ -512,7 +436,6 @@ public class GenerateCode {
         }
         String ret = sb.toString();
         ret = StringUtils.removeStart(ret, "_");
-        ret = "btrcrm_" + ret;
         return ret;
     }
 

@@ -12,6 +12,4 @@ import java.lang.annotation.*;
 public @interface DbInfo {
 
     String tableName();
-
-    String seqName();
 }

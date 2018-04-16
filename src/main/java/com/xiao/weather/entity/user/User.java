@@ -1,6 +1,7 @@
 package com.xiao.weather.entity.user;
 
 import com.xiao.weather.entity.AbstractEntityBase;
+import com.xiao.weather.util.annotation.DbInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,6 +17,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel("用户")
+@DbInfo(tableName="user")
 public class User extends AbstractEntityBase implements Serializable{
 
     private static final long serialVersionUID = -6313769122312170763L;
@@ -42,7 +44,7 @@ public class User extends AbstractEntityBase implements Serializable{
     private Date lastAttemptedLoginTime;
 
     @ApiModelProperty(value = "密码错误次数")
-    private int passwordErrorTimes;
+    private Integer passwordErrorTimes = 0;
 
 
 }

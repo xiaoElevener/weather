@@ -1,10 +1,12 @@
 package com.xiao.weather.util.dozer;
 
 import org.dozer.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class DozerHelper {
 
     private Mapper mapper;

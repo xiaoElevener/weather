@@ -43,7 +43,7 @@
 
 	<!-- CRUD begin -->
 	<insert id="insert">
-				insert into btrcrm_user(
+				insert into user(
 		<!-- 0 -->creator_name,
 		<!-- 1 -->updater_name,
 		<!-- 2 -->created_time,
@@ -80,7 +80,7 @@
 	</insert>
 
 	<update id="update">
-			 update btrcrm_user
+			 update user
 		<include refid="updateSetSql" />
 		where id=#{id} and lock_version=#{lockVersion}
 	</update>
@@ -129,36 +129,36 @@
 	</sql>
 
 	<delete id="delete">
-		delete from btrcrm_user where id = #{id}
+		delete from user where id = #{id}
 	</delete>
 
 	<select id="find" resultMap="UserResultMap">
-		select * from btrcrm_user where id
+		select * from user where id
 		= #{id}
 	</select>
 
 	<select id="findVo" resultMap="UserVoResultMap">
-		select * from btrcrm_user where
+		select * from user where
 		id = #{id}
 	</select>
 
 	<select id="selectBySo" resultMap="UserResultMap">
-		select t.* from btrcrm_user t
+		select t.* from user t
 		<include refid="soSqlFilter" />
 	</select>
 
 	<select id="selectVoBySo" resultMap="UserVoResultMap">
-		select t.* from btrcrm_user t
+		select t.* from user t
 		<include refid="soSqlFilter" />
 	</select>
 
 	<select id="selectCountBySo" resultType="int">
-		select count(1) from btrcrm_user t
+		select count(1) from user t
 		<include refid="soSqlFilter" />
 	</select>
 
 	<delete id="deleteByIds" parameterType="map">
-		delete from btrcrm_user t where t.id in
+		delete from user t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
@@ -166,7 +166,7 @@
 	</delete>
 
 	<delete id="deleteByIdList">
-		delete from btrcrm_user t where t.id in
+		delete from user t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
@@ -174,7 +174,7 @@
 	</delete>
 
 	<select id="selectVoByIdList" resultMap="UserVoResultMap">
-		select * from btrcrm_user t where t.id in
+		select * from user t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
@@ -182,7 +182,7 @@
 	</select>
 
 	<select id="selectByIdList" resultMap="UserResultMap">
-		select * from btrcrm_user t where t.id in
+		select * from user t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
