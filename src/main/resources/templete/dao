@@ -1,0 +1,14 @@
+package #;
+
+import com.xiao.weather.dao.core.Dao;
+import &;
+
+/**
+ * @author xiao_elevener
+ */
+public interface $Dao extends Dao<$> {
+
+}
+
+
+

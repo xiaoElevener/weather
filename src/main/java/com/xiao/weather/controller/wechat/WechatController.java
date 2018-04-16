@@ -2,7 +2,7 @@ package com.xiao.weather.controller.wechat;
 
 import com.xiao.weather.constant.MsgType;
 import com.xiao.weather.service.wechat.WechatEventService;
-import com.xiao.weather.vo.wechat.WechatMessageResponse;
+import com.xiao.weather.common.vo.wechat.WechatMessageResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

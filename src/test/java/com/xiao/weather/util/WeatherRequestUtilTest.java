@@ -2,8 +2,8 @@ package com.xiao.weather.util;
 
 import com.alibaba.fastjson.JSON;
 import com.xiao.weather.config.XinZhiConfig;
-import com.xiao.weather.vo.weather.NowWeatherVO;
-import com.xiao.weather.vo.weather.XinZhiResultVO;
+import com.xiao.weather.common.vo.weather.NowWeatherVO;
+import com.xiao.weather.common.vo.weather.XinZhiResultVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,0 +1,15 @@
+package #;
+
+import org.springframework.stereotype.Repository;
+import com.xiao.weather.weather.dao.core.BaseDao;
+import &;
+
+/**
+ * @author xiao_elevener
+ */
+@Repository
+public class $DaoImpl extends BaseDao<$> implements $Dao {
+
+}
+
+

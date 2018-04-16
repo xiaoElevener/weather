@@ -17,39 +17,23 @@ public class GenerateCode {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    private static final String BASE_DIR = "E:\\ideaProject\\btrcrm_v1\\";
+    private static final String BASE_DIR = "G:\\IDEA_Project\\newseawin\\weather\\";
 
-    private static final String DAO_WORK = "crm-dao\\src\\main\\java\\com\\oasis\\crm\\dao\\";
+    private static final String MAPPER_WORK = "src\\main\\resources\\mappers\\";
 
-    private static final String SERVICE_WORK = "crm-service\\src\\main\\java\\com\\oasis\\crm\\service\\";
+    private static final String DAO_WORK_MODEL = "src\\main\\java\\";
 
-    private static final String SERVICEIMP_WORK = "src\\main\\java\\com\\oasis\\crm\\service\\";
+    private static final String SERVICE_WORK_MODEL = "src\\main\\java\\";
 
-    private static final String FACAD_WORK = "crm-controller\\src\\main\\java\\com\\oasis\\crm\\controller\\";
+    private static final String FACAD_WORK_MODEL = "src\\main\\java\\";
 
-    private static final String MAPPER_WORK = "crm-dao\\src\\main\\resources\\mappers\\";
-
-    private static final String VO_WORK = "src\\main\\resources\\mapper\\";
-
-    private static final String PO_WORK = "src\\main\\resources\\mapper\\";
-
-    private static final String DAO_WORK_MODEL = "crm-dao\\src\\main\\java\\";
-
-    private static final String SERVICE_WORK_model = "crm-service\\src\\main\\java\\";
-
-    private static final String FACAD_WORK_model = "crm-controller\\src\\main\\java\\";
-
-    private static final String common_work_model = "crm-common\\src\\main\\java\\";
 
     @SuppressWarnings({"rawtypes"})
     public static void main(String[] args) throws Exception {
 
-        // String dir = System.getProperty("user.dir");
-//        BASE_DIR = dir + "\\wyvern-server\\";
 
         Scanner scan = new Scanner(System.in);
-        System.out.println("生成过程开始，是否要生成 table： y,n");
-        String str1 = scan.next().trim();
+
 
         System.out.println("是否要生成 Mapper：y,n");
         String str2 = scan.next().trim();
@@ -68,11 +52,6 @@ public class GenerateCode {
             String str0 = scan.next().trim();
             Class clazz = Class.forName(str0);
             GenerateCode gen = new GenerateCode();
-            if ("y".equalsIgnoreCase(str1)) {
-                gen.genTable(clazz, gen.getParentAndSelfFileds(clazz));
-                gen.genPrimaryKey(clazz);
-                gen.genSeq(clazz);
-            }
 
             if ("y".equalsIgnoreCase(str2)) {
                 gen.genMapper(clazz, gen.getParentAndSelfFileds(clazz), gen);
@@ -170,7 +149,7 @@ public class GenerateCode {
     @SuppressWarnings("rawtypes")
     private String getDaoPackeName(Class clazz) {
         String module_name = clazz.getName();
-        String temp = module_name.replace(".model.", ".dao.");
+        String temp = module_name.replace(".entity.", ".dao.");
         int a = temp.lastIndexOf(".");
         return temp.substring(0, a).replace(".", "\\");
     }
@@ -178,7 +157,7 @@ public class GenerateCode {
     @SuppressWarnings("rawtypes")
     private String getVoPackName(Class clazz) {
         String module_name = clazz.getName();
-        String temp = module_name.replace(".model.", ".common.biz.vo.");
+        String temp = module_name.replace(".entity.", ".common.biz.vo.");
         int a = temp.lastIndexOf(".");
         return temp.substring(0, a).replace(".", "\\");
     }
@@ -186,7 +165,7 @@ public class GenerateCode {
     @SuppressWarnings("rawtypes")
     private String getServicePackeName(Class clazz) {
         String module_name = clazz.getName();
-        String temp = module_name.replace(".model.", ".service.");
+        String temp = module_name.replace(".entity.", ".service.");
         int a = temp.lastIndexOf(".");
         return temp.substring(0, a).replace(".", "\\");
     }
@@ -194,7 +173,7 @@ public class GenerateCode {
     @SuppressWarnings("rawtypes")
     private String getFacadePackeName(Class clazz) {
         String module_name = clazz.getName();
-        String temp = module_name.replace(".model.", ".controller.");
+        String temp = module_name.replace(".entity.", ".controller.");
         int a = temp.lastIndexOf(".");
         return temp.substring(0, a).replace(".", "\\");
     }
@@ -203,9 +182,9 @@ public class GenerateCode {
     private void genService(Class clazz) throws Exception {
         String modelName = clazz.getSimpleName();
         System.out.println(modelName);
-        genDaoInterface(modelName, this.getClass().getResource("/templete/service").getPath(), BASE_DIR + SERVICE_WORK_model
+        genDaoInterface(modelName, this.getClass().getResource("/templete/service").getPath(), BASE_DIR + SERVICE_WORK_MODEL
                 + getServicePackeName(clazz), "Service", clazz, getServicePackeName(clazz));
-        genDaoInterface(modelName, this.getClass().getResource("/templete/serviceImpl").getPath(), BASE_DIR + SERVICE_WORK_model
+        genDaoInterface(modelName, this.getClass().getResource("/templete/serviceImpl").getPath(), BASE_DIR + SERVICE_WORK_MODEL
                 + getServicePackeName(clazz), "ServiceImpl", clazz, getServicePackeName(clazz));
     }
 
@@ -214,7 +193,7 @@ public class GenerateCode {
 
         String modelName = clazz.getSimpleName();
         System.out.println(modelName);
-        genDaoInterface(modelName, this.getClass().getResource("/templete/facade").getPath(), BASE_DIR + FACAD_WORK_model
+        genDaoInterface(modelName, this.getClass().getResource("/templete/facade").getPath(), BASE_DIR + FACAD_WORK_MODEL
                 + getFacadePackeName(clazz), "Controller", clazz, getFacadePackeName(clazz));
 
     }
@@ -233,31 +212,6 @@ public class GenerateCode {
         }
         System.out.println(key.toString());
         return key.toString();
-    }
-
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    private String genSeq(Class clazz) {
-        String seqName = null;
-        StringBuffer sequence = new StringBuffer();
-        if (clazz.isAnnotationPresent(DbInfo.class)) {
-            // 该class存在Table类型的注解，获取指定的表名
-            DbInfo seq = (DbInfo) clazz.getAnnotation(DbInfo.class);
-            seqName = seq.seqName();
-        } else {
-            String name = clazz.getSimpleName();
-            String table = this.className2TableName(name);
-            seqName = table + "_seq";
-        }
-        sequence.append("--create sequence " + seqName + "\n");
-        sequence.append("create sequence " + seqName);
-        sequence.append(" minvalue 1 ");
-        sequence.append(" maxvalue 999999999999999999999999999 ");
-        sequence.append(" start with 60000 ");
-        sequence.append(" increment by 1 ");
-        sequence.append(" cache 20; ");
-        sequence.append("\n");
-        System.out.println(sequence.toString());
-        return sequence.toString();
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -752,7 +706,7 @@ public class GenerateCode {
 
             StringBuffer sb = new StringBuffer();
             URL url = this.getClass().getResource("/templete/MapperTemplate.xml");
-            fr = new FileReader(url.getFile());
+             fr = new FileReader(url.getFile());
             br = new BufferedReader(fr);
 
             String line = br.readLine();

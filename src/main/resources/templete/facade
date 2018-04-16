@@ -1,0 +1,11 @@
+package #;
+
+import org.springframework.stereotype.Controller;
+
+/**
+ * @author xiao_elevener
+ */
+@Controller
+public class $Controller {
+    
+}

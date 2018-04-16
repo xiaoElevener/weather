@@ -1,0 +1,8 @@
+package #;
+
+/**
+ * @author xiao_elevener
+ */
+public interface $Service {
+
+}

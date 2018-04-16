@@ -2,9 +2,9 @@ package com.xiao.weather.controller.weather;
 
 import com.xiao.weather.config.XinZhiConfig;
 import com.xiao.weather.util.WeatherRequestUtil;
-import com.xiao.weather.vo.ResultVO;
-import com.xiao.weather.vo.weather.NowWeatherVO;
-import com.xiao.weather.vo.weather.XinZhiResultVO;
+import com.xiao.weather.common.vo.ResultVO;
+import com.xiao.weather.common.vo.weather.NowWeatherVO;
+import com.xiao.weather.common.vo.weather.XinZhiResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
