@@ -1,6 +1,6 @@
 package com.xiao.weather.controller.wechat;
 
-import com.xiao.weather.constant.MsgType;
+import com.xiao.weather.common.constant.MsgType;
 import com.xiao.weather.service.wechat.WechatEventService;
 import com.xiao.weather.common.vo.wechat.WechatMessageResponse;
 import lombok.extern.slf4j.Slf4j;

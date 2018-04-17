@@ -1,4 +1,4 @@
-package com.xiao.weather.constant;
+package com.xiao.weather.common.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,5 +1,6 @@
-package com.xiao.weather.common.so;
+package com.xiao.weather.common.so.user;
 
+import com.xiao.weather.common.so.BaseSo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

@@ -1,7 +1,7 @@
 package com.xiao.weather.service.user;
 
 import com.xiao.weather.common.exception.BizException;
-import com.xiao.weather.common.so.UserSo;
+import com.xiao.weather.common.so.user.UserSo;
 import com.xiao.weather.common.vo.user.UserVo;
 import com.xiao.weather.dao.user.UserDao;
 import com.xiao.weather.entity.user.User;

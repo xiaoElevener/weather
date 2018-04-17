@@ -16,6 +16,7 @@ import java.util.Date;
 @ApiModel("用户vo")
 public class UserVo extends AbstractVo implements Serializable{
 
+    private static final long serialVersionUID = 4505382889661780307L;
     @ApiModelProperty("登陆账号")
     private String loginName;
 
