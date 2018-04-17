@@ -27,7 +27,7 @@ public class WeatherRequestUtilTest {
     public void request() throws Exception {
         Map<String, Object> map = new HashMap<>(1);
         map.put("location", "hangzhou");
-        XinZhiResultVO<NowWeatherVO> weatherVOXinZhiResultVO = weatherRequestUtil.request(xinZhiConfig.getWeatherApi(), map, NowWeatherVO.class);
+        XinZhiResultVO<NowWeatherVO> weatherVOXinZhiResultVO = weatherRequestUtil.request(xinZhiConfig.getWeatherApi(), map);
         System.out.println(JSON.toJSONString(weatherVOXinZhiResultVO));
     }
 

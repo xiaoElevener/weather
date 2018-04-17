@@ -1,7 +1,5 @@
-package com.xiao.weather.common.vo.user;
+package com.xiao.weather.common.so;
 
-import com.xiao.weather.common.vo.AbstractVo;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,11 +8,12 @@ import java.util.Date;
 
 /**
  * @author xiao_elevener
- * @date 2018-04-16 15:05
+ * @date 2018-04-17 14:12
  */
 @Data
-@ApiModel("用户vo")
-public class UserVo extends AbstractVo implements Serializable{
+public class UserSo extends BaseSo implements Serializable{
+
+    private static final long serialVersionUID = -9139402342877534378L;
 
     @ApiModelProperty("登陆账号")
     private String loginName;
@@ -39,4 +38,5 @@ public class UserVo extends AbstractVo implements Serializable{
 
     @ApiModelProperty(value = "密码错误次数")
     private Integer passwordErrorTimes;
+
 }

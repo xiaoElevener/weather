@@ -27,7 +27,7 @@ public class WeatherServiceImpl implements WeatherService {
     public String getNowWeather(String location) {
         Map<String, Object> map = new HashMap<>(1);
         map.put("location", location);
-        XinZhiResultVO<NowWeatherVO> vo = weatherRequestUtil.request(xinZhiConfig.getWeatherApi(), map, NowWeatherVO.class);
+        XinZhiResultVO<NowWeatherVO> vo = weatherRequestUtil.request(xinZhiConfig.getWeatherApi(), map);
         if (vo.getResults() == null || vo.getResults().length == 0) {
             return null;
         }

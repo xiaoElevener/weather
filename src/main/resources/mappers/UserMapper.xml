@@ -1,231 +1,267 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiao.weather.dao.user.UserDao">
 
-	<!-- resultMap begin -->
-	<resultMap type="User" id="UserResultMap">
-				<!-- 0 --><result property="id"  column="id" />
-		<!-- 1 --><result property="creatorName"  column="creator_name" />
-		<!-- 2 --><result property="updaterName"  column="updater_name" />
-		<!-- 3 --><result property="createdTime"  column="created_time" />
-		<!-- 4 --><result property="updatedTime"  column="updated_time" />
-		<!-- 5 --><result property="lockVersion"  column="lock_version" />
-		<!-- 6 --><result property="loginName"  column="login_name" />
-		<!-- 7 --><result property="userName"  column="user_name" />
-		<!-- 8 --><result property="telephone"  column="telephone" />
-		<!-- 9 --><result property="password"  column="password" />
-		<!-- 10 --><result property="salt"  column="salt" />
-		<!-- 11 --><result property="locked"  column="locked" />
-		<!-- 12 --><result property="lastAttemptedLoginTime"  column="last_attempted_login_time" />
-		<!-- 13 --><result property="passwordErrorTimes"  column="password_error_times" />
+    <!-- resultMap begin -->
+    <resultMap type="User" id="UserResultMap">
+        <!-- 0 -->
+        <result property="id" column="id"/>
+        <!-- 1 -->
+        <result property="creatorName" column="creator_name"/>
+        <!-- 2 -->
+        <result property="updaterName" column="updater_name"/>
+        <!-- 3 -->
+        <result property="createdTime" column="created_time"/>
+        <!-- 4 -->
+        <result property="updatedTime" column="updated_time"/>
+        <!-- 5 -->
+        <result property="lockVersion" column="lock_version"/>
+        <!-- 6 -->
+        <result property="loginName" column="login_name"/>
+        <!-- 7 -->
+        <result property="userName" column="user_name"/>
+        <!-- 8 -->
+        <result property="telephone" column="telephone"/>
+        <!-- 9 -->
+        <result property="password" column="password"/>
+        <!-- 10 -->
+        <result property="salt" column="salt"/>
+        <!-- 11 -->
+        <result property="locked" column="locked"/>
+        <!-- 12 -->
+        <result property="lastAttemptedLoginTime" column="last_attempted_login_time"/>
+        <!-- 13 -->
+        <result property="passwordErrorTimes" column="password_error_times"/>
 
-	</resultMap>
+    </resultMap>
 
-	<resultMap type="UserVo" id="UserVoResultMap">
-				<!-- 0 --><result property="id"  column="id" />
-		<!-- 1 --><result property="creatorName"  column="creator_name" />
-		<!-- 2 --><result property="updaterName"  column="updater_name" />
-		<!-- 3 --><result property="createdTime"  column="created_time" />
-		<!-- 4 --><result property="updatedTime"  column="updated_time" />
-		<!-- 5 --><result property="lockVersion"  column="lock_version" />
-		<!-- 6 --><result property="loginName"  column="login_name" />
-		<!-- 7 --><result property="userName"  column="user_name" />
-		<!-- 8 --><result property="telephone"  column="telephone" />
-		<!-- 9 --><result property="password"  column="password" />
-		<!-- 10 --><result property="salt"  column="salt" />
-		<!-- 11 --><result property="locked"  column="locked" />
-		<!-- 12 --><result property="lastAttemptedLoginTime"  column="last_attempted_login_time" />
-		<!-- 13 --><result property="passwordErrorTimes"  column="password_error_times" />
+    <resultMap type="UserVo" id="UserVoResultMap">
+        <!-- 0 -->
+        <result property="id" column="id"/>
+        <!-- 1 -->
+        <result property="creatorName" column="creator_name"/>
+        <!-- 2 -->
+        <result property="updaterName" column="updater_name"/>
+        <!-- 3 -->
+        <result property="createdTime" column="created_time"/>
+        <!-- 4 -->
+        <result property="updatedTime" column="updated_time"/>
+        <!-- 5 -->
+        <result property="lockVersion" column="lock_version"/>
+        <!-- 6 -->
+        <result property="loginName" column="login_name"/>
+        <!-- 7 -->
+        <result property="userName" column="user_name"/>
+        <!-- 8 -->
+        <result property="telephone" column="telephone"/>
+        <!-- 9 -->
+        <result property="password" column="password"/>
+        <!-- 10 -->
+        <result property="salt" column="salt"/>
+        <!-- 11 -->
+        <result property="locked" column="locked"/>
+        <!-- 12 -->
+        <result property="lastAttemptedLoginTime" column="last_attempted_login_time"/>
+        <!-- 13 -->
+        <result property="passwordErrorTimes" column="password_error_times"/>
 
-	</resultMap>
-	<!-- resultMap end -->
+    </resultMap>
+    <!-- resultMap end -->
 
-	<!-- CRUD begin -->
-	<insert id="insert">
-				insert into user(
-		<!-- 0 -->creator_name,
-		<!-- 1 -->updater_name,
-		<!-- 2 -->created_time,
-		<!-- 3 -->updated_time,
-		<!-- 4 -->lock_version,
-		<!-- 5 -->login_name,
-		<!-- 6 -->user_name,
-		<!-- 7 -->telephone,
-		<!-- 8 -->password,
-		<!-- 9 -->salt,
-		<!-- 10 -->locked,
-		<!-- 11 -->last_attempted_login_time,
-		<!-- 12 -->password_error_times
-		) 
-		values(
-		<!-- 0 -->#{creatorName},
-		<!-- 1 -->#{updaterName},
-		<!-- 2 -->#{createdTime},
-		<!-- 3 -->#{updatedTime},
-		<!-- 4 -->#{lockVersion},
-		<!-- 5 -->#{loginName},
-		<!-- 6 -->#{userName},
-		<!-- 7 -->#{telephone},
-		<!-- 8 -->#{password},
-		<!-- 9 -->#{salt},
-		<!-- 10 -->#{locked},
-		<!-- 11 -->#{lastAttemptedLoginTime},
-		<!-- 12 -->#{passwordErrorTimes}
-		)
-		<selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
- 			select LAST_INSERT_ID()
-		</selectKey>
+    <!-- CRUD begin -->
+    <insert id="insert">
+        insert into user(
+        <!-- 0 -->creator_name,
+        <!-- 1 -->updater_name,
+        <!-- 2 -->created_time,
+        <!-- 3 -->updated_time,
+        <!-- 4 -->lock_version,
+        <!-- 5 -->login_name,
+        <!-- 6 -->user_name,
+        <!-- 7 -->telephone,
+        <!-- 8 -->password,
+        <!-- 9 -->salt,
+        <!-- 10 -->locked,
+        <!-- 11 -->last_attempted_login_time,
+        <!-- 12 -->password_error_times
+        )
+        values(
+        <!-- 0 -->#{creatorName},
+        <!-- 1 -->#{updaterName},
+        <!-- 2 -->#{createdTime},
+        <!-- 3 -->#{updatedTime},
+        <!-- 4 -->#{lockVersion},
+        <!-- 5 -->#{loginName},
+        <!-- 6 -->#{userName},
+        <!-- 7 -->#{telephone},
+        <!-- 8 -->#{password},
+        <!-- 9 -->#{salt},
+        <!-- 10 -->#{locked},
+        <!-- 11 -->#{lastAttemptedLoginTime},
+        <!-- 12 -->#{passwordErrorTimes}
+        )
+        <selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
 
-	</insert>
+    </insert>
 
-	<update id="update">
-			 update user
-		<include refid="updateSetSql" />
-		where id=#{id} and lock_version=#{lockVersion}
-	</update>
+    <update id="update">
+        update user
+        <include refid="updateSetSql"/>
+        where id=#{id} and lock_version=#{lockVersion}
+    </update>
 
-	<sql id="updateSetSql">
-		<set>
-					<if test="creatorName!=null and creatorName!='' ">
-		<!-- 0 -->creator_name=#{creatorName},
-		</if>
-		<if test="updaterName!=null and updaterName!='' ">
-		<!-- 1 -->updater_name=#{updaterName},
-		</if>
-		<if test="createdTime!=null and createdTime!='' ">
-		<!-- 2 -->created_time=#{createdTime},
-		</if>
-		<if test="updatedTime!=null and updatedTime!='' ">
-		<!-- 3 -->updated_time=#{updatedTime},
-		</if>
-		<!-- 4 -->lock_version=#{lockVersion}+1,
-		<if test="loginName!=null and loginName!='' ">
-		<!-- 5 -->login_name=#{loginName},
-		</if>
-		<if test="userName!=null and userName!='' ">
-		<!-- 6 -->user_name=#{userName},
-		</if>
-		<if test="telephone!=null and telephone!='' ">
-		<!-- 7 -->telephone=#{telephone},
-		</if>
-		<if test="password!=null and password!='' ">
-		<!-- 8 -->password=#{password},
-		</if>
-		<if test="salt!=null and salt!='' ">
-		<!-- 9 -->salt=#{salt},
-		</if>
-		<if test="locked!=null and locked!='' ">
-		<!-- 10 -->locked=#{locked},
-		</if>
-		<if test="lastAttemptedLoginTime!=null and lastAttemptedLoginTime!='' ">
-		<!-- 11 -->last_attempted_login_time=#{lastAttemptedLoginTime},
-		</if>
-		<if test="passwordErrorTimes!=null and passwordErrorTimes!='' ">
-		<!-- 12 -->password_error_times=#{passwordErrorTimes}
-		</if>
+    <sql id="updateSetSql">
+        <set>
+            <if test="creatorName!=null and creatorName!='' ">
+                <!-- 0 -->creator_name=#{creatorName},
+            </if>
+            <if test="updaterName!=null and updaterName!='' ">
+                <!-- 1 -->updater_name=#{updaterName},
+            </if>
+            <if test="createdTime!=null and createdTime!='' ">
+                <!-- 2 -->created_time=#{createdTime},
+            </if>
+            <if test="updatedTime!=null and updatedTime!='' ">
+                <!-- 3 -->updated_time=#{updatedTime},
+            </if>
+            <!-- 4 -->lock_version=#{lockVersion}+1,
+            <if test="loginName!=null and loginName!='' ">
+                <!-- 5 -->login_name=#{loginName},
+            </if>
+            <if test="userName!=null and userName!='' ">
+                <!-- 6 -->user_name=#{userName},
+            </if>
+            <if test="telephone!=null and telephone!='' ">
+                <!-- 7 -->telephone=#{telephone},
+            </if>
+            <if test="password!=null and password!='' ">
+                <!-- 8 -->password=#{password},
+            </if>
+            <if test="salt!=null and salt!='' ">
+                <!-- 9 -->salt=#{salt},
+            </if>
+            <if test="locked!=null and locked!='' ">
+                <!-- 10 -->locked=#{locked},
+            </if>
+            <if test="lastAttemptedLoginTime!=null and lastAttemptedLoginTime!='' ">
+                <!-- 11 -->last_attempted_login_time=#{lastAttemptedLoginTime},
+            </if>
+            <if test="passwordErrorTimes!=null and passwordErrorTimes!='' ">
+                <!-- 12 -->password_error_times=#{passwordErrorTimes}
+            </if>
 
-		</set>
-	</sql>
+        </set>
+    </sql>
 
-	<delete id="delete">
+    <delete id="delete">
 		delete from user where id = #{id}
 	</delete>
 
-	<select id="find" resultMap="UserResultMap">
+    <select id="find" resultMap="UserResultMap">
 		select * from user where id
 		= #{id}
 	</select>
 
-	<select id="findVo" resultMap="UserVoResultMap">
+    <select id="findVo" resultMap="UserVoResultMap">
 		select * from user where
 		id = #{id}
 	</select>
 
-	<select id="selectBySo" resultMap="UserResultMap">
-		select t.* from user t
-		<include refid="soSqlFilter" />
+    <select id="selectBySo" resultMap="UserResultMap">
+        select t.* from user t
+        <include refid="soSqlFilter"/>
+    </select>
+
+    <select id="selectVoBySo" resultMap="UserVoResultMap">
+        select t.* from user t
+        <include refid="soSqlFilter"/>
+    </select>
+
+    <select id="selectCountBySo" resultType="int">
+        select count(1) from user t
+        <include refid="soSqlFilter"/>
+    </select>
+
+    <delete id="deleteByIds" parameterType="map">
+        delete from user t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdList">
+        delete from user t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="selectVoByIdList" resultMap="UserVoResultMap">
+        select * from user t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectByIdList" resultMap="UserResultMap">
+        select * from user t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <sql id="soSqlFilter">
+        <where>
+            <if test="creatorName !=null ">
+                and t.creator_name = #{creatorName}
+            </if>
+            <if test="updaterName !=null ">
+                and t.updater_name = #{updaterName}
+            </if>
+            <if test="loginName !=null ">
+                and t.login_name = #{loginName}
+            </if>
+            <if test="userName !=null ">
+                and t.user_name = #{userName}
+            </if>
+            <if test="telephone !=null ">
+                and t.telephone = #{telephone}
+            </if>
+            <if test="password !=null ">
+                and t.password = #{password}
+            </if>
+            <if test="salt !=null ">
+                and t.salt = #{salt}
+            </if>
+            <if test="locked !=null ">
+                and t.locked = #{locked}
+            </if>
+            <if test="lastAttemptedLoginTime !=null ">
+                and t.last_attempted_login_time = #{lastAttemptedLoginTime}
+            </if>
+
+        </where>
+    </sql>
+    <!-- CRUD end -->
+
+    <!-- business begin -->
+    <update id="lockUser">
+		update user set locked = true where login_name=#{loginName}
+	</update>
+
+    <select id="findUser" resultMap="UserVoResultMap">
+		select * from user
+		where login_name = #{login_name}
+		and password = #{password}
+		and lock_version = 0
 	</select>
 
-	<select id="selectVoBySo" resultMap="UserVoResultMap">
-		select t.* from user t
-		<include refid="soSqlFilter" />
-	</select>
-
-	<select id="selectCountBySo" resultType="int">
-		select count(1) from user t
-		<include refid="soSqlFilter" />
-	</select>
-
-	<delete id="deleteByIds" parameterType="map">
-		delete from user t where t.id in
-		<foreach collection="list" index="dex" item="item" open="("
-			close=")" separator=",">
-			#{item}
-		</foreach>
-	</delete>
-
-	<delete id="deleteByIdList">
-		delete from user t where t.id in
-		<foreach collection="list" index="dex" item="item" open="("
-			close=")" separator=",">
-			#{item}
-		</foreach>
-	</delete>
-
-	<select id="selectVoByIdList" resultMap="UserVoResultMap">
-		select * from user t where t.id in
-		<foreach collection="list" index="dex" item="item" open="("
-			close=")" separator=",">
-			#{item}
-		</foreach>
-	</select>
-
-	<select id="selectByIdList" resultMap="UserResultMap">
-		select * from user t where t.id in
-		<foreach collection="list" index="dex" item="item" open="("
-			close=")" separator=",">
-			#{item}
-		</foreach>
-	</select>
-
-	<sql id="soSqlFilter">
-		<where>
-					<if test="creatorName !=null ">
-			 and t.creator_name = #{creatorName}
-		</if>
-		<if test="updaterName !=null ">
-			 and t.updater_name = #{updaterName}
-		</if>
-		<if test="loginName !=null ">
-			 and t.login_name = #{loginName}
-		</if>
-		<if test="userName !=null ">
-			 and t.user_name = #{userName}
-		</if>
-		<if test="telephone !=null ">
-			 and t.telephone = #{telephone}
-		</if>
-		<if test="password !=null ">
-			 and t.password = #{password}
-		</if>
-		<if test="salt !=null ">
-			 and t.salt = #{salt}
-		</if>
-		<if test="locked !=null ">
-			 and t.locked = #{locked}
-		</if>
-		<if test="lastAttemptedLoginTime !=null ">
-			 and t.last_attempted_login_time = #{lastAttemptedLoginTime}
-		</if>
-		<if test="passwordErrorTimes !=null ">
-			 and t.password_error_times = #{passwordErrorTimes}
-		</if>
-
-		</where>
-	</sql>
-	<!-- CRUD end -->
-
-	<!-- business begin -->
-	<!-- business end -->
+    <!-- business end -->
 </mapper>

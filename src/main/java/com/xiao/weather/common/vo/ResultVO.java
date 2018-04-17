@@ -20,7 +20,7 @@ public class ResultVO<T extends Serializable> implements Serializable  {
     /**
      * 错误及提示
      */
-    private List<String> messages;
+    private String messages;
 
     /**
      * 返回对象

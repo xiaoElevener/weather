@@ -39,7 +39,7 @@ public class XinZhiController {
         Map<String,Object> map = new HashMap<>(1);
         map.put("location",location);
         ResultVO<XinZhiResultVO> resultVO = new ResultVO<>();
-        resultVO.setVo(weatherRequestUtil.request(xinZhiConfig.getWeatherApi(), map, NowWeatherVO.class));
+        resultVO.setVo(weatherRequestUtil.request(xinZhiConfig.getWeatherApi(), map));
         return resultVO;
     }
 

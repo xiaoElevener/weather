@@ -1,5 +1,6 @@
 package com.xiao.weather.common.so;
 
+import com.xiao.weather.entity.AbstractEntityBase;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -11,7 +12,7 @@ import java.io.Serializable;
  *
  */
 @Data
-public class BaseSo implements Serializable {
+public class BaseSo extends AbstractEntityBase implements Serializable {
 
     private static final long serialVersionUID = 4009650342175211289L;
 

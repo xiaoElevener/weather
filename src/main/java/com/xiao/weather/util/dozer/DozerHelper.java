@@ -1,6 +1,7 @@
 package com.xiao.weather.util.dozer;
 
 import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 @Component
 public class DozerHelper {
 
+    @Autowired
     private Mapper mapper;
 
     public Mapper getMapper() {

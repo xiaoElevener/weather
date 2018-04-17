@@ -1,13 +1,8 @@
 package com.xiao.weather.config;
 
-/**
- * swagger
- *
- * @author xiao_elevener
- * @date 2018-04-16 14:30
- */
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -18,15 +13,18 @@ import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Created by max on 8/16/16.
+ * swagger
+ *
+ * @author xiao_elevener
+ * @date 2018-04-16 14:30
  */
 @EnableSwagger2
+@Configuration
 public class SwaggerConfiguration {
 
     @Bean
     public Docket getApiInfo() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("outer api")
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
