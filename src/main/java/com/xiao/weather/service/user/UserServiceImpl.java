@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.xiao.weather.service.core.AbstractServiceImpl;
 
+import java.util.List;
+
 /**
  * @author xiao_elevener
  */
@@ -87,7 +89,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
     @Override
     public void deleteUser(String loginName) {
         int count = getCountByLoginName(loginName);
-        if(count == 0){
+        if (count == 0) {
             throw new BizException("【删除用户异常】,该用户不存在");
         }
         userDao.lockUser(loginName);
@@ -95,6 +97,17 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
 
     @Override
     public void login(UserVo userVo) {
+        //TODO
         User user = userDao.findUser(userVo);
+    }
+
+    @Override
+    public List<UserVo> findUserVosBySo(UserSo userSo) {
+        return userDao.selectPaginationVoBySo(userSo);
+    }
+
+    @Override
+    public void updateUser(UserVo userVo) {
+        userDao.update(dozer.convert(userVo, User.class));
     }
 }

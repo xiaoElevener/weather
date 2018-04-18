@@ -12,7 +12,8 @@
 		<!-- 4 --><result property="updatedTime"  column="updated_time" />
 		<!-- 5 --><result property="lockVersion"  column="lock_version" />
 		<!-- 6 --><result property="roleName"  column="role_name" />
-		<!-- 7 --><result property="description"  column="description" />
+		<!-- 7 --><result property="roleCode"  column="role_code" />
+		<!-- 8 --><result property="description"  column="description" />
 
 	</resultMap>
 
@@ -24,7 +25,8 @@
 		<!-- 4 --><result property="updatedTime"  column="updated_time" />
 		<!-- 5 --><result property="lockVersion"  column="lock_version" />
 		<!-- 6 --><result property="roleName"  column="role_name" />
-		<!-- 7 --><result property="description"  column="description" />
+		<!-- 7 --><result property="roleCode"  column="role_code" />
+		<!-- 8 --><result property="description"  column="description" />
 
 	</resultMap>
 	<!-- resultMap end -->
@@ -38,7 +40,8 @@
 		<!-- 3 -->updated_time,
 		<!-- 4 -->lock_version,
 		<!-- 5 -->role_name,
-		<!-- 6 -->description
+		<!-- 6 -->role_code,
+		<!-- 7 -->description
 		) 
 		values(
 		<!-- 0 -->#{creatorName},
@@ -47,7 +50,8 @@
 		<!-- 3 -->#{updatedTime},
 		<!-- 4 -->#{lockVersion},
 		<!-- 5 -->#{roleName},
-		<!-- 6 -->#{description}
+		<!-- 6 -->#{roleCode},
+		<!-- 7 -->#{description}
 		)
 		<selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
  			select LAST_INSERT_ID()
@@ -79,8 +83,11 @@
 		<if test="roleName!=null and roleName!='' ">
 		<!-- 5 -->role_name=#{roleName},
 		</if>
+		<if test="roleCode!=null and roleCode!='' ">
+		<!-- 6 -->role_code=#{roleCode},
+		</if>
 		<if test="description!=null and description!='' ">
-		<!-- 6 -->description=#{description}
+		<!-- 7 -->description=#{description}
 		</if>
 
 		</set>
@@ -157,6 +164,9 @@
 		</if>
 		<if test="roleName !=null ">
 			 and t.role_name = #{roleName}
+		</if>
+		<if test="roleCode !=null ">
+			 and t.role_code = #{roleCode}
 		</if>
 		<if test="description !=null ">
 			 and t.description = #{description}

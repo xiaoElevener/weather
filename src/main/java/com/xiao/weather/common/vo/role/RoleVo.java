@@ -22,6 +22,9 @@ public class RoleVo extends AbstractVo implements Serializable {
     @ApiModelProperty("角色名")
     private String roleName;
 
+    @ApiModelProperty("角色code")
+    private String roleCode;
+
     @ApiModelProperty("描述")
     private String description;
 }

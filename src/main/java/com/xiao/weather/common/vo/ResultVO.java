@@ -31,4 +31,9 @@ public class ResultVO<T extends Serializable> implements Serializable  {
      * 返回列表
      */
     private List<T> voList;
+
+    /**
+     * 列表的数量
+     */
+    private Integer total;
 }

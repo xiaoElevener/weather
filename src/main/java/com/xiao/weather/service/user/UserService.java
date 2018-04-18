@@ -1,6 +1,9 @@
 package com.xiao.weather.service.user;
 
+import com.xiao.weather.common.so.user.UserSo;
 import com.xiao.weather.common.vo.user.UserVo;
+
+import java.util.List;
 
 /**
  * @author xiao_elevener
@@ -26,5 +29,14 @@ public interface UserService {
      */
     void login(UserVo userVo);
 
+    /**
+     * 条件查询用户列表
+     * @return
+     */
+    List<UserVo> findUserVosBySo(UserSo userSo);
 
+    /**
+     * 更新用户
+     */
+    void updateUser(UserVo userVo);
 }
