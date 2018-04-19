@@ -21,11 +21,7 @@ public class RoleServiceImpl extends AbstractServiceImpl implements RoleService 
     @Autowired
     private RoleDao roleDao;
 
-    @Override
-    public List<RoleVo> findRolesByUserId(Long userId) {
-        //TODO
-        return null;
-    }
+
 
     @Override
     public List<RoleVo> findAllRoles() {

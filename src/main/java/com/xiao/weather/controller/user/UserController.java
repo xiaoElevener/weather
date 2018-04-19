@@ -37,14 +37,10 @@ public class UserController {
 
     @RequestMapping(value = "/userList", method = RequestMethod.GET)
     @ApiOperation("获取用户列表")
-    public ResultVO<UserVo> listUser(@RequestBody(required = false) UserSo userSo) {
-        if (userSo == null) {
-            userSo = new UserSo();
-        }
+    public ResultVO<UserVo> listUser(UserSo userSo) {
         ResultVO<UserVo> resultVO = new ResultVO<>();
-        List<UserVo> userVoList = userService.findUserVosBySo(userSo);
-        resultVO.setVoList(userVoList);
-        resultVO.setTotal(userVoList.size());
+        resultVO.setVoList(userService.findUserVosBySo(userSo));
+        resultVO.setTotal(userService.countByUserSo(userSo));
         return resultVO;
     }
 

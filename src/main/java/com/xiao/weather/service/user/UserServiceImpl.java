@@ -1,8 +1,10 @@
 package com.xiao.weather.service.user;
 
+import com.sun.org.apache.regexp.internal.RE;
 import com.xiao.weather.common.exception.BizException;
 import com.xiao.weather.common.so.user.UserSo;
 import com.xiao.weather.common.vo.user.UserVo;
+import com.xiao.weather.dao.role.RoleDao;
 import com.xiao.weather.dao.user.UserDao;
 import com.xiao.weather.entity.user.User;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +24,9 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private RoleDao roleDao;
 
     @Override
     public void createUser(UserVo userVo) {
@@ -103,11 +108,18 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
 
     @Override
     public List<UserVo> findUserVosBySo(UserSo userSo) {
-        return userDao.selectPaginationVoBySo(userSo);
+        List<UserVo> userVoList = userDao.selectPaginationVoBySo(userSo);
+        return  userVoList;
     }
+
 
     @Override
     public void updateUser(UserVo userVo) {
         userDao.update(dozer.convert(userVo, User.class));
+    }
+
+    @Override
+    public int countByUserSo(UserSo userSo) {
+        return userDao.selectCountBySo(userSo);
     }
 }

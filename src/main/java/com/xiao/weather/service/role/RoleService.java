@@ -10,12 +10,6 @@ import java.util.List;
  */
 public interface RoleService {
 
-    /**
-     * 通过用户id查询角色
-     * @param userId
-     * @return
-     */
-    List<RoleVo> findRolesByUserId(Long userId);
 
     /**
      * 获取所有角色

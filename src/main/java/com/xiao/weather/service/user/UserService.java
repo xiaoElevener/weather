@@ -39,4 +39,6 @@ public interface UserService {
      * 更新用户
      */
     void updateUser(UserVo userVo);
+
+    int countByUserSo(UserSo userSo);
 }

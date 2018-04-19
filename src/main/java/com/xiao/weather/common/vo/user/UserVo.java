@@ -1,6 +1,8 @@
 package com.xiao.weather.common.vo.user;
 
+import java.util.List;
 import com.xiao.weather.common.vo.AbstractVo;
+import com.xiao.weather.entity.role.Role;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -40,4 +42,7 @@ public class UserVo extends AbstractVo implements Serializable{
 
     @ApiModelProperty(value = "密码错误次数")
     private Integer passwordErrorTimes;
+
+    @ApiModelProperty(value = "用户拥有角色")
+    private List<Role> roles;
 }
