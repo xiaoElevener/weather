@@ -6,5 +6,15 @@ package com.xiao.weather.common.constant;
  * @author xiao_elevener
  * @date 2018-04-21 16:09
  */
-public class EventType {
+public enum EventType {
+
+    /**
+     * 定位事件
+     */
+    LOCATION,
+
+    /**
+     * 点击事件
+     */
+    CLICK
 }

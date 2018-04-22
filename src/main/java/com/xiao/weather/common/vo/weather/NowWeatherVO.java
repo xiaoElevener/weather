@@ -21,7 +21,7 @@ public class NowWeatherVO implements Serializable{
     /**
      * 天气
      */
-    private Weather weather;
+    private Weather now;
 
     /**
      * 上次更新时间

@@ -1,4 +1,4 @@
-package com.xiao.weather.config;
+package com.xiao.weather.common.constant;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Data
 @ConfigurationProperties(prefix = "xinzhi")
 @Component
-public class XinZhiConfig {
+public class XinZhiProperties {
 
     private String uid ;
 

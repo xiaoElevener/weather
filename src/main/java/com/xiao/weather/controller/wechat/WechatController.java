@@ -1,40 +1,46 @@
 package com.xiao.weather.controller.wechat;
 
-import com.xiao.weather.common.constant.MsgType;
-import com.xiao.weather.service.wechat.WechatEventService;
-import com.xiao.weather.common.vo.wechat.WechatMessageResponse;
+import com.xiao.weather.service.wechat.messageHandler.MessageHandlerCenter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import weixin.popular.bean.message.EventMessage;
-import weixin.popular.bean.message.message.Message;
 import weixin.popular.util.XMLConverUtil;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 
 /**
  * @author xiao_elevener
  * @date 2018-03-24 17:04
  */
-@RestController
+@Controller
 @Slf4j
 public class WechatController {
 
     @Autowired
-    private WechatEventService wechatEventService;
+    private MessageHandlerCenter messageHandlerCenter;
 
-    @RequestMapping("/wechat")
-    public String responseToWechat(@RequestBody String content) {
-        log.info("content={}", content);
+    private final String SUCCESS = "success";
+
+    @PostMapping("/wechat")
+    public void responseToWechat(@RequestBody String content, HttpServletResponse response) throws IOException {
+        log.info("receive={}", content);
         EventMessage eventMessage = XMLConverUtil.convertToObject(EventMessage.class, content);
-        if (eventMessage.getMsgType().equals(MsgType.EVENT.getType())) {
-            Message message = wechatEventService.handleEventMessage(eventMessage);
-            WechatMessageResponse<Message> response = new WechatMessageResponse<>();
-            response.setMessage(message);
-            log.info("response={}", response);
-            return XMLConverUtil.convertToXML(response);
-        }
-        return "success";
+        EventMessage responseMessage = messageHandlerCenter.handleEventMessage(eventMessage);
+        printResponse(response.getWriter(),responseMessage);
+    }
+
+    private void printResponse(PrintWriter writer,EventMessage responseMessage){
+        String response = responseMessage == null ? SUCCESS:XMLConverUtil.convertToXML(responseMessage);
+        log.info("response={}",response);
+        writer.print(response);
+        writer.close();
     }
 
 

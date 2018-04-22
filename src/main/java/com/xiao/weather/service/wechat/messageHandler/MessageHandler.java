@@ -1,4 +1,4 @@
-package com.xiao.weather.service.wechat.eventHandler;
+package com.xiao.weather.service.wechat.messageHandler;
 
 
 import weixin.popular.bean.message.EventMessage;
@@ -16,7 +16,7 @@ public interface MessageHandler {
      * 获取事件类型
      * @return
      */
-    String getEventType();
+    String getMsgType();
 
     /**
      * 处理事件

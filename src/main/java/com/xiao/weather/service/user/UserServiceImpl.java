@@ -109,6 +109,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
     @Override
     public List<UserVo> findUserVosBySo(UserSo userSo) {
         List<UserVo> userVoList = userDao.selectPaginationVoBySo(userSo);
+        userVoList.stream().forEach(userVo -> userVo.setRoles(roleDao.findRolesByUserId(userVo.getId())));
         return  userVoList;
     }
 

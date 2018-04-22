@@ -33,7 +33,7 @@ public class Location {
     /**
      * 时区
      */
-    private String timezonne;
+    private String timezone;
 
     /**
      * 时差

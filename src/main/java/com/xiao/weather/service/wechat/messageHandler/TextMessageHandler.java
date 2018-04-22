@@ -1,4 +1,4 @@
-package com.xiao.weather.service.wechat.eventHandler;
+package com.xiao.weather.service.wechat.messageHandler;
 
 import com.xiao.weather.common.constant.MsgType;
 import com.xiao.weather.util.WechatUtil;
@@ -13,18 +13,19 @@ import weixin.popular.bean.message.EventMessage;
  * @author xiao_elevener
  * @date 2018-04-21 1:25
  */
-@Component
 @Slf4j
+@Component
 public class TextMessageHandler implements MessageHandler {
 
-    private final MsgType EVENT_TYPE = MsgType.TEXT;
+    private final MsgType MESSAGE_TYPE = MsgType.TEXT;
 
     @Autowired
     private WechatUtil wechatUtil;
 
+
     @Override
-    public String getEventType() {
-        return this.EVENT_TYPE.toString();
+    public String getMsgType() {
+        return this.MESSAGE_TYPE.toString();
     }
 
     @Override

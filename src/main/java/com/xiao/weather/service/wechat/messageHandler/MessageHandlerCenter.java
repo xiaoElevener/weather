@@ -1,11 +1,13 @@
-package com.xiao.weather.service.wechat.eventHandler;
+package com.xiao.weather.service.wechat.messageHandler;
 
 import com.alibaba.druid.support.json.JSONUtils;
+import com.xiao.weather.util.WechatUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import weixin.popular.bean.message.EventMessage;
 
+import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Iterator;
@@ -21,29 +23,31 @@ import java.util.Iterator;
 public class MessageHandlerCenter {
 
     @Autowired
-    private TextMessageHandler textMessageHandler;
-
-    @Autowired
-    private  EventMessageHandler eventMessageHandler;
+    private WechatUtil wechatUtil;
 
     private List<MessageHandler> messageHandlerList = new LinkedList<>();
 
+    @Autowired
+    private EventMessageHandler eventMessageHandler;
 
+    @Autowired
+    private  TextMessageHandler textMessageHandler;
 
-    public MessageHandlerCenter(){
-        messageHandlerList.add(textMessageHandler);
+    @PostConstruct
+    public void init() {
         messageHandlerList.add(eventMessageHandler);
+        messageHandlerList.add(textMessageHandler);
     }
 
-    public EventMessage handlEventMessage(EventMessage eventMessage){
+    public EventMessage handleEventMessage(EventMessage eventMessage) {
         Iterator<MessageHandler> iterator = messageHandlerList.iterator();
-        while (iterator.hasNext()){
-            MessageHandler messageHandler =  iterator.next();
-            if(messageHandler.getEventTpye().equalsIgnoreCase(eventMessage.getEvent())){
-               return messageHandler.handleEvent(eventMessage);
+        while (iterator.hasNext()) {
+            MessageHandler messageHandler = iterator.next();
+            if (messageHandler.getMsgType().equalsIgnoreCase(eventMessage.getMsgType())) {
+                return messageHandler.handleMessage(eventMessage);
             }
         }
-        log.warn("无此消息类型处理器，eventMessage={}", JSONUtils.toJSONString(eventMessage));
+        log.warn("无此消息类型处理器，eventMessage={}", eventMessage.toString());
         return null;
     }
 

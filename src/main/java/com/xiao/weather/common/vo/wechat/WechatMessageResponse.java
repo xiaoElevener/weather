@@ -1,22 +1,17 @@
 package com.xiao.weather.common.vo.wechat;
 
-import com.xiao.weather.config.WechatConfig;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author xiao_elevener
  * @date 2018-03-25 0:50
+ * 被动回复用户消息
  */
 @Data
-public class WechatMessageResponse<T> {
 
-    @Autowired
-    private WechatConfig wechatConfig;
+public class WechatMessageResponse {
 
-    private T message;
 
-    private String FromUserName = wechatConfig.getMyUserName();
 
     private Integer CreateTime;
 

@@ -1,6 +1,7 @@
 package com.xiao.weather.service.weather;
 
-import com.xiao.weather.config.XinZhiConfig;
+import com.xiao.weather.common.constant.XinZhiProperties;
+import com.xiao.weather.entity.location.WechatLocation;
 import com.xiao.weather.util.WeatherRequestUtil;
 import com.xiao.weather.common.vo.weather.NowWeatherVO;
 import com.xiao.weather.common.vo.weather.XinZhiResultVO;
@@ -21,17 +22,33 @@ public class WeatherServiceImpl implements WeatherService {
     private WeatherRequestUtil weatherRequestUtil;
 
     @Autowired
-    private XinZhiConfig xinZhiConfig;
+    private XinZhiProperties xinZhiProperties;
 
     @Override
-    public String getNowWeather(String location) {
+    public String getNowWeather(WechatLocation wechatLocation) {
         Map<String, Object> map = new HashMap<>(1);
-        map.put("location", location);
-        XinZhiResultVO<NowWeatherVO> vo = weatherRequestUtil.request(xinZhiConfig.getWeatherApi(), map);
+        map.put("location", getCityNameByLocation(wechatLocation));
+        XinZhiResultVO<NowWeatherVO> vo = weatherRequestUtil.request(xinZhiProperties.getWeatherApi(), map);
         if (vo.getResults() == null || vo.getResults().length == 0) {
             return null;
         }
-        return vo.getResults()[0].toString();
+        return changeWeatherVoToWords(vo.getResults()[0]);
+    }
+
+    /**
+     * 将天气信息展示为中文
+     *
+     * @param nowWeatherVO
+     * @return
+     */
+    public String changeWeatherVoToWords(NowWeatherVO nowWeatherVO) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("位置:" + nowWeatherVO.getLocation().getName() + "\n" + "天气:" + nowWeatherVO.getNow().getText() + "\n" + "气温:" + nowWeatherVO.getNow().getTemperature());
+        return stringBuilder.toString();
+    }
+
+    public String getCityNameByLocation(WechatLocation wechatLocation) {
+        return weatherRequestUtil.getCityNameByLocation(wechatLocation.getLongitude() + "," + wechatLocation.getLatitude());
     }
 
 

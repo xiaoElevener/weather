@@ -1,9 +1,12 @@
 package com.xiao.weather.util;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.xiao.weather.common.constant.GaoDeProperties;
+import com.xiao.weather.common.exception.BizException;
 import com.xiao.weather.common.vo.weather.NowWeatherVO;
-import com.xiao.weather.config.XinZhiConfig;
+import com.xiao.weather.common.constant.XinZhiProperties;
 import com.xiao.weather.common.vo.weather.XinZhiResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +36,10 @@ public class WeatherRequestUtil {
     private RestTemplate restTemplate;
 
     @Autowired
-    private XinZhiConfig xinZhiConfig;
+    private XinZhiProperties xinZhiProperties;
+
+    @Autowired
+    private GaoDeProperties gaoDeProperties;
 
     /**
      * 签名失效时间
@@ -53,8 +59,14 @@ public class WeatherRequestUtil {
     /**
      * 语言
      */
-    private final String HanYu = "zh-Hans";
+    private final String HAN_YU = "zh-Hans";
 
+    /**
+     * 温度单位
+     */
+    private final String UNIT = "c";
+
+    private final String EMPTY_CITY = "[]";
 
     /**
      * 加密url
@@ -64,10 +76,10 @@ public class WeatherRequestUtil {
      */
     private String getRequestUrl(String apiUrl) {
         long current = System.currentTimeMillis();
-        String param = "ts=" + current + "&ttl=" + TTL + "&uid=" + xinZhiConfig.getUid();
+        String param = "ts=" + current + "&ttl=" + TTL + "&uid=" + xinZhiProperties.getUid();
         String signature = null;
         try {
-            signature = getSignature(param, xinZhiConfig.getKey());
+            signature = getSignature(param, xinZhiProperties.getKey());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,7 +93,7 @@ public class WeatherRequestUtil {
      * @return
      */
     private String getRequestUrlUnionKey(String apiUrl) {
-        return apiUrl + "?" + "key=" + xinZhiConfig.getKey();
+        return apiUrl + "?" + "key=" + xinZhiProperties.getKey() + "&unit=" + UNIT + "&language=" + HAN_YU;
     }
 
 
@@ -116,6 +128,7 @@ public class WeatherRequestUtil {
 
     /**
      * 构建url
+     *
      * @param api
      * @param map
      * @return
@@ -127,6 +140,32 @@ public class WeatherRequestUtil {
             stringBuilder.append("&" + key + "=" + map.get(key).toString());
         }
         return stringBuilder.toString();
+    }
+
+
+    public String getCityNameByLocation(String location) {
+        //TODO 待优化
+        StringBuilder cityName = new StringBuilder();
+        String url = gaoDeProperties.getRegeoApi() + "?key=" + gaoDeProperties.getKey() + "&location=" + location;
+        JSONObject result = restTemplate.getForObject(url, JSONObject.class);
+        if (result.getInteger("status") == 0) {
+            throw new BizException("请求高德接口失败,url=" + url);
+        }
+        try {
+            JSONObject addressComponent = result.getJSONObject("regeocode").getJSONObject("addressComponent");
+            String province = addressComponent.getString("province");
+            if (province != null) {
+                cityName.append(province);
+            }
+            String city = addressComponent.getString("city");
+            if (!EMPTY_CITY.equals(city)) {
+                cityName.append(city);
+            }
+            return cityName.toString().replace("省","").replace("市","");
+        } catch (NullPointerException e) {
+            throw new BizException("请求高德接口失败,url=" + url + "result=" + result);
+        }
+
     }
 
 
