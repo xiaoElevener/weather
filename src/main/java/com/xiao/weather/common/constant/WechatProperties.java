@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class WechatConfig {
 
-    private String AppID;
+    private String appId;
 
-    private String AppSecret;
+    private String appSecret;
 
-    private String createMenu;
+    private String createMenuUrl;
 
     private String myUserName;
 }
