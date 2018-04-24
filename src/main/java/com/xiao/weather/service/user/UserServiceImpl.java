@@ -92,18 +92,16 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
     }
 
     @Override
-    public void deleteUser(String loginName) {
-        int count = getCountByLoginName(loginName);
-        if (count == 0) {
-            throw new BizException("【删除用户异常】,该用户不存在");
-        }
-        userDao.lockUser(loginName);
+    public void deleteUser(long id) {
+        userDao.lockUser(id);
     }
 
     @Override
-    public void login(UserVo userVo) {
+    public UserVo login(UserVo userVo) {
         //TODO
-        User user = userDao.findUser(userVo);
+        userVo.setLockVersion(null);
+        UserVo user = userDao.findUser(userVo);
+        return user;
     }
 
     @Override

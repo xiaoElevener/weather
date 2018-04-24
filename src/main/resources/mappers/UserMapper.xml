@@ -121,10 +121,10 @@
             <if test="updaterName!=null and updaterName!='' ">
                 <!-- 1 -->updater_name=#{updaterName},
             </if>
-            <if test="createdTime!=null and createdTime!='' ">
+            <if test="createdTime!=null">
                 <!-- 2 -->created_time=#{createdTime},
             </if>
-            <if test="updatedTime!=null and updatedTime!='' ">
+            <if test="updatedTime!=null">
                 <!-- 3 -->updated_time=#{updatedTime},
             </if>
             <!-- 4 -->lock_version=#{lockVersion}+1,
@@ -143,13 +143,13 @@
             <if test="salt!=null and salt!='' ">
                 <!-- 9 -->salt=#{salt},
             </if>
-            <if test="locked!=null and locked!='' ">
+            <if test="locked!=null and locked!=''">
                 <!-- 10 -->locked=#{locked},
             </if>
-            <if test="lastAttemptedLoginTime!=null and lastAttemptedLoginTime!='' ">
+            <if test="lastAttemptedLoginTime!=null">
                 <!-- 11 -->last_attempted_login_time=#{lastAttemptedLoginTime},
             </if>
-            <if test="passwordErrorTimes!=null and passwordErrorTimes!='' ">
+            <if test="passwordErrorTimes!=null and passwordErrorTimes!=''">
                 <!-- 12 -->password_error_times=#{passwordErrorTimes}
             </if>
 
@@ -253,14 +253,14 @@
 
     <!-- business begin -->
     <update id="lockUser">
-		update user set locked = true where login_name=#{loginName}
+		update user set locked = true where id=#{id}
 	</update>
 
     <select id="findUser" resultMap="UserVoResultMap">
 		select * from user
-		where login_name = #{login_name}
+		where login_name = #{loginName}
 		and password = #{password}
-		and lock_version = 0
+		and locked = 0
 	</select>
 
     <!-- business end -->

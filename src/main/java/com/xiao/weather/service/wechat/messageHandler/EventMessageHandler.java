@@ -1,7 +1,7 @@
 package com.xiao.weather.service.wechat.messageHandler;
 
-import com.alibaba.druid.support.json.JSONUtils;
-import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import com.xiao.weather.common.constant.EventKey;
 import com.xiao.weather.common.constant.EventType;
 import com.xiao.weather.common.constant.MsgType;
@@ -36,7 +36,7 @@ public class EventMessageHandler implements MessageHandler {
     private WechatUtil wechatUtil;
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public String getMsgType() {
@@ -52,7 +52,7 @@ public class EventMessageHandler implements MessageHandler {
         if (eventMessage.getEvent().equalsIgnoreCase(EventType.LOCATION.toString())) {
             WechatLocation wechatLocation = getWechatLocation(eventMessage);
             //将用户地理位置缓存到redis
-            redisTemplate.opsForValue().set(getLocationKey(eventMessage.getFromUserName()), JSONObject.toJSONString(wechatLocation));
+            redisTemplate.opsForValue().set(getLocationKey(eventMessage.getFromUserName()), wechatLocation);
             return null;
         }
 
@@ -60,13 +60,12 @@ public class EventMessageHandler implements MessageHandler {
         if (eventMessage.getEvent().equalsIgnoreCase(EventType.CLICK.toString())) {
             log.info("点击事件,{}" + eventMessage);
             if (eventMessage.getEventKey().equalsIgnoreCase(EventKey.NOW_WEATHER.getEventKey())) {
-                String location = redisTemplate.opsForValue().get(getLocationKey(eventMessage.getFromUserName()));
-                if(location == null){
+                WechatLocation location = (WechatLocation) redisTemplate.opsForValue().get(getLocationKey(eventMessage.getFromUserName()));
+                if (location == null) {
                     responseMessage.setContent("无法获取位置信息,请提供位置服务");
                     return responseMessage;
                 }
-                WechatLocation wechatLocation = JSONObject.parseObject(location,WechatLocation.class);
-                responseMessage.setContent(weatherService.getNowWeather(wechatLocation));
+                responseMessage.setContent(weatherService.getNowWeather(location));
                 return responseMessage;
             }
         }

@@ -11,16 +11,16 @@ public interface UserDao extends Dao<User> {
 
     /**
      * 锁定用户
-     * @param loginName
+     * @param id
      */
-    void lockUser(String loginName);
+    void lockUser(long id);
 
 
     /**
      * 登陆查找用户(只通过loginName和password查询
      * @param userVo
      */
-    User findUser(UserVo userVo);
+    UserVo findUser(UserVo userVo);
 }
 
 

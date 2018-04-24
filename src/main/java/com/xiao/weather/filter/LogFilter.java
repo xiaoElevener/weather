@@ -9,6 +9,8 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +32,8 @@ public class LogFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         long startTime = System.currentTimeMillis();
-        log.info("startTime:{}", startTime);
+        HttpServletRequest req =(HttpServletRequest) request;
+        log.info("startTime:{} requestUrl={}", startTime,req.getRequestURI());
         chain.doFilter(request, response);
         long endTime = System.currentTimeMillis();
         log.info("endTime:{}", endTime);

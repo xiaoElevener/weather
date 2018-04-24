@@ -33,7 +33,7 @@ public class WechatUtil {
     private WechatProperties wechatProperties;
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     public static final String ACCESS_TOKEN_KEY = "accessToken";
 
@@ -47,10 +47,11 @@ public class WechatUtil {
      * @return
      */
     public String getAccessToken() {
-        String accessToekn = redisTemplate.opsForValue().get(ACCESS_TOKEN_KEY);
-        if (accessToekn != null) {
-            return accessToekn;
+        String accessToken = (String)redisTemplate.opsForValue().get(ACCESS_TOKEN_KEY);
+        if (accessToken != null) {
+            return accessToken;
         }
+        //TODO 可以使用spring cache
         Token token = TokenAPI.token(wechatProperties.getAppId(), wechatProperties.getAppSecret());
         redisTemplate.opsForValue().set(ACCESS_TOKEN_KEY, token.getAccess_token(), EXPIRE_TIME, TimeUnit.SECONDS);
         return token.getAccess_token();

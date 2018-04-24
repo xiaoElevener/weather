@@ -8,11 +8,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -28,14 +26,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @PostMapping(value = "/user")
     @ApiOperation("创建用户")
     public ResultVO<String> createUser(@RequestBody UserVo userVo) {
         userService.createUser(userVo);
         return new ResultVO<>();
     }
 
-    @RequestMapping(value = "/userList", method = RequestMethod.GET)
+    @GetMapping(value = "/userList")
     @ApiOperation("获取用户列表")
     public ResultVO<UserVo> listUser(UserSo userSo) {
         ResultVO<UserVo> resultVO = new ResultVO<>();
@@ -45,9 +43,32 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public ResultVO<String> updateUser(@RequestBody UserVo userVo) {
+    @PutMapping(value = "/user/{id}")
+    public ResultVO<String> updateUser(@PathVariable("id") long id, @RequestBody UserVo userVo) {
+        userVo.setId(id);
         userService.updateUser(userVo);
         return new ResultVO<>();
     }
+
+    @DeleteMapping(value = "/user/{id}")
+    public ResultVO<String> deleteUser(@PathVariable(value = "id") long id) {
+        userService.deleteUser(id);
+        return new ResultVO<>();
+    }
+
+
+    @PutMapping(value = "/user/login")
+    public ResultVO<UserVo> login(@RequestBody UserVo userVo) {
+        UserVo user = userService.login(userVo);
+        ResultVO<UserVo> resultVO = new ResultVO<>();
+        if (user == null) {
+            resultVO.setSuccess(Boolean.FALSE);
+            resultVO.setMessage("用户名密码错误!");
+        } else {
+            resultVO.setVo(userVo);
+        }
+        return resultVO;
+    }
+
+
 }

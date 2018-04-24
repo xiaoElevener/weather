@@ -1,6 +1,7 @@
 package com.xiao.weather.common.vo;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  * @create 2018-03-22 14:24
  */
 @Data
+@NoArgsConstructor
 public class ResultVO<T extends Serializable> implements Serializable  {
 
     /**
@@ -20,7 +22,7 @@ public class ResultVO<T extends Serializable> implements Serializable  {
     /**
      * 错误及提示
      */
-    private String messages;
+    private String message;
 
     /**
      * 返回对象
@@ -36,4 +38,13 @@ public class ResultVO<T extends Serializable> implements Serializable  {
      * 列表的数量
      */
     private Integer total;
+
+    public ResultVO(T vo){
+        this.vo = vo;
+    }
+
+
+    public ResultVO(List<T> voList){
+        this.voList = voList;
+    }
 }

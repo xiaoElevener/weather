@@ -18,16 +18,16 @@ public interface UserService {
 
     /**
      * 登录名唯一，删除用软删除
-     * @param loginName
+     * @param id
      */
-    void deleteUser(String loginName);
+    void deleteUser(long id);
 
     /**
      * 通过登陆名,密码 进行登录
      * @param userVo 前端只提供loginName,password
      * @return
      */
-    void login(UserVo userVo);
+    UserVo login(UserVo userVo);
 
     /**
      * 条件查询用户列表
@@ -40,5 +40,10 @@ public interface UserService {
      */
     void updateUser(UserVo userVo);
 
+    /**
+     * 根据条件查询数量
+     * @param userSo
+     * @return
+     */
     int countByUserSo(UserSo userSo);
 }

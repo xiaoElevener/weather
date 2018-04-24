@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xiao.weather.dao.role.RoleDao">
+<mapper namespace="com.xiao.weather.dao.predefinedcode.PredefinedCodeDao">
 
 	<!-- resultMap begin -->
-	<resultMap type="Role" id="RoleResultMap">
+	<resultMap type="PredefinedCode" id="PredefinedCodeResultMap">
 				<!-- 0 --><result property="id"  column="id" />
 		<!-- 1 --><result property="creatorName"  column="creator_name" />
 		<!-- 2 --><result property="updaterName"  column="updater_name" />
 		<!-- 3 --><result property="createdTime"  column="created_time" />
 		<!-- 4 --><result property="updatedTime"  column="updated_time" />
 		<!-- 5 --><result property="lockVersion"  column="lock_version" />
-		<!-- 6 --><result property="roleName"  column="role_name" />
-		<!-- 7 --><result property="roleCode"  column="role_code" />
+		<!-- 6 --><result property="code"  column="code" />
+		<!-- 7 --><result property="value"  column="value" />
 		<!-- 8 --><result property="description"  column="description" />
 
 	</resultMap>
 
-	<resultMap type="RoleVo" id="RoleVoResultMap">
+	<resultMap type="PredefinedCodeVo" id="PredefinedCodeVoResultMap">
 				<!-- 0 --><result property="id"  column="id" />
 		<!-- 1 --><result property="creatorName"  column="creator_name" />
 		<!-- 2 --><result property="updaterName"  column="updater_name" />
 		<!-- 3 --><result property="createdTime"  column="created_time" />
 		<!-- 4 --><result property="updatedTime"  column="updated_time" />
 		<!-- 5 --><result property="lockVersion"  column="lock_version" />
-		<!-- 6 --><result property="roleName"  column="role_name" />
-		<!-- 7 --><result property="roleCode"  column="role_code" />
+		<!-- 6 --><result property="code"  column="code" />
+		<!-- 7 --><result property="value"  column="value" />
 		<!-- 8 --><result property="description"  column="description" />
 
 	</resultMap>
@@ -33,14 +33,14 @@
 
 	<!-- CRUD begin -->
 	<insert id="insert">
-				insert into role(
+				insert into predefined_code(
 		<!-- 0 -->creator_name,
 		<!-- 1 -->updater_name,
 		<!-- 2 -->created_time,
 		<!-- 3 -->updated_time,
 		<!-- 4 -->lock_version,
-		<!-- 5 -->role_name,
-		<!-- 6 -->role_code,
+		<!-- 5 -->code,
+		<!-- 6 -->value,
 		<!-- 7 -->description
 		) 
 		values(
@@ -49,8 +49,8 @@
 		<!-- 2 -->#{createdTime},
 		<!-- 3 -->#{updatedTime},
 		<!-- 4 -->#{lockVersion},
-		<!-- 5 -->#{roleName},
-		<!-- 6 -->#{roleCode},
+		<!-- 5 -->#{code},
+		<!-- 6 -->#{value},
 		<!-- 7 -->#{description}
 		)
 		<selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
@@ -60,7 +60,7 @@
 	</insert>
 
 	<update id="update">
-			 update role
+			 update predefined_code
 		<include refid="updateSetSql" />
 		where id=#{id} and lock_version=#{lockVersion}
 	</update>
@@ -80,11 +80,11 @@
 		<!-- 3 -->updated_time=#{updatedTime},
 		</if>
 		<!-- 4 -->lock_version=#{lockVersion}+1,
-		<if test="roleName!=null and roleName!='' ">
-		<!-- 5 -->role_name=#{roleName},
+		<if test="code!=null and code!='' ">
+		<!-- 5 -->code=#{code},
 		</if>
-		<if test="roleCode!=null and roleCode!='' ">
-		<!-- 6 -->role_code=#{roleCode},
+		<if test="value!=null and value!='' ">
+		<!-- 6 -->value=#{value},
 		</if>
 		<if test="description!=null and description!='' ">
 		<!-- 7 -->description=#{description}
@@ -94,36 +94,36 @@
 	</sql>
 
 	<delete id="delete">
-		delete from role where id = #{id}
+		delete from predefined_code where id = #{id}
 	</delete>
 
-	<select id="find" resultMap="RoleResultMap">
-		select * from role where id
+	<select id="find" resultMap="PredefinedCodeResultMap">
+		select * from predefined_code where id
 		= #{id}
 	</select>
 
-	<select id="findVo" resultMap="RoleVoResultMap">
-		select * from role where
+	<select id="findVo" resultMap="PredefinedCodeVoResultMap">
+		select * from predefined_code where
 		id = #{id}
 	</select>
 
-	<select id="selectBySo" resultMap="RoleResultMap">
-		select t.* from role t
+	<select id="selectBySo" resultMap="PredefinedCodeResultMap">
+		select t.* from predefined_code t
 		<include refid="soSqlFilter" />
 	</select>
 
-	<select id="selectVoBySo" resultMap="RoleVoResultMap">
-		select t.* from role t
+	<select id="selectVoBySo" resultMap="PredefinedCodeVoResultMap">
+		select t.* from predefined_code t
 		<include refid="soSqlFilter" />
 	</select>
 
 	<select id="selectCountBySo" resultType="int">
-		select count(1) from role t
+		select count(1) from predefined_code t
 		<include refid="soSqlFilter" />
 	</select>
 
 	<delete id="deleteByIds" parameterType="map">
-		delete from role t where t.id in
+		delete from predefined_code t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
@@ -131,23 +131,23 @@
 	</delete>
 
 	<delete id="deleteByIdList">
-		delete from role t where t.id in
+		delete from predefined_code t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
 		</foreach>
 	</delete>
 
-	<select id="selectVoByIdList" resultMap="RoleVoResultMap">
-		select * from role t where t.id in
+	<select id="selectVoByIdList" resultMap="PredefinedCodeVoResultMap">
+		select * from predefined_code t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
 		</foreach>
 	</select>
 
-	<select id="selectByIdList" resultMap="RoleResultMap">
-		select * from role t where t.id in
+	<select id="selectByIdList" resultMap="PredefinedCodeResultMap">
+		select * from predefined_code t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
@@ -162,11 +162,11 @@
 		<if test="updaterName !=null ">
 			 and t.updater_name = #{updaterName}
 		</if>
-		<if test="roleName !=null ">
-			 and t.role_name = #{roleName}
+		<if test="code !=null ">
+			 and t.code = #{code}
 		</if>
-		<if test="roleCode !=null ">
-			 and t.role_code = #{roleCode}
+		<if test="value !=null ">
+			 and t.value = #{value}
 		</if>
 		<if test="description !=null ">
 			 and t.description = #{description}
@@ -177,8 +177,5 @@
 	<!-- CRUD end -->
 
 	<!-- business begin -->
-	<select id="findRolesByUserId" resultMap="RoleVoResultMap" parameterType="long">
-		select * from user_role ur left join role r on ur.role_id  = r.id where ur.user_id = #{userId};
-	</select>
 	<!-- business end -->
 </mapper>

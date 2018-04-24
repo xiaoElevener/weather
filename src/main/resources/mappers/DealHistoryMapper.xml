@@ -1,47 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xiao.weather.dao.role.RoleDao">
+<mapper namespace="com.xiao.weather.dao.dealhistory.DealHistoryDao">
 
 	<!-- resultMap begin -->
-	<resultMap type="Role" id="RoleResultMap">
+	<resultMap type="DealHistory" id="DealHistoryResultMap">
 				<!-- 0 --><result property="id"  column="id" />
 		<!-- 1 --><result property="creatorName"  column="creator_name" />
 		<!-- 2 --><result property="updaterName"  column="updater_name" />
 		<!-- 3 --><result property="createdTime"  column="created_time" />
 		<!-- 4 --><result property="updatedTime"  column="updated_time" />
 		<!-- 5 --><result property="lockVersion"  column="lock_version" />
-		<!-- 6 --><result property="roleName"  column="role_name" />
-		<!-- 7 --><result property="roleCode"  column="role_code" />
-		<!-- 8 --><result property="description"  column="description" />
+		<!-- 6 --><result property="accountId"  column="account_id" />
+		<!-- 7 --><result property="userId"  column="user_id" />
+		<!-- 8 --><result property="money"  column="money" />
+		<!-- 9 --><result property="dealType"  column="deal_type" />
+		<!-- 10 --><result property="description"  column="description" />
 
 	</resultMap>
 
-	<resultMap type="RoleVo" id="RoleVoResultMap">
+	<resultMap type="DealHistoryVo" id="DealHistoryVoResultMap">
 				<!-- 0 --><result property="id"  column="id" />
 		<!-- 1 --><result property="creatorName"  column="creator_name" />
 		<!-- 2 --><result property="updaterName"  column="updater_name" />
 		<!-- 3 --><result property="createdTime"  column="created_time" />
 		<!-- 4 --><result property="updatedTime"  column="updated_time" />
 		<!-- 5 --><result property="lockVersion"  column="lock_version" />
-		<!-- 6 --><result property="roleName"  column="role_name" />
-		<!-- 7 --><result property="roleCode"  column="role_code" />
-		<!-- 8 --><result property="description"  column="description" />
+		<!-- 6 --><result property="accountId"  column="account_id" />
+		<!-- 7 --><result property="userId"  column="user_id" />
+		<!-- 8 --><result property="money"  column="money" />
+		<!-- 9 --><result property="dealType"  column="deal_type" />
+		<!-- 10 --><result property="description"  column="description" />
 
 	</resultMap>
 	<!-- resultMap end -->
 
 	<!-- CRUD begin -->
 	<insert id="insert">
-				insert into role(
+				insert into deal_history(
 		<!-- 0 -->creator_name,
 		<!-- 1 -->updater_name,
 		<!-- 2 -->created_time,
 		<!-- 3 -->updated_time,
 		<!-- 4 -->lock_version,
-		<!-- 5 -->role_name,
-		<!-- 6 -->role_code,
-		<!-- 7 -->description
+		<!-- 5 -->account_id,
+		<!-- 6 -->user_id,
+		<!-- 7 -->money,
+		<!-- 8 -->deal_type,
+		<!-- 9 -->description
 		) 
 		values(
 		<!-- 0 -->#{creatorName},
@@ -49,9 +55,11 @@
 		<!-- 2 -->#{createdTime},
 		<!-- 3 -->#{updatedTime},
 		<!-- 4 -->#{lockVersion},
-		<!-- 5 -->#{roleName},
-		<!-- 6 -->#{roleCode},
-		<!-- 7 -->#{description}
+		<!-- 5 -->#{accountId},
+		<!-- 6 -->#{userId},
+		<!-- 7 -->#{money},
+		<!-- 8 -->#{dealType},
+		<!-- 9 -->#{description}
 		)
 		<selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
  			select LAST_INSERT_ID()
@@ -60,7 +68,7 @@
 	</insert>
 
 	<update id="update">
-			 update role
+			 update deal_history
 		<include refid="updateSetSql" />
 		where id=#{id} and lock_version=#{lockVersion}
 	</update>
@@ -80,50 +88,56 @@
 		<!-- 3 -->updated_time=#{updatedTime},
 		</if>
 		<!-- 4 -->lock_version=#{lockVersion}+1,
-		<if test="roleName!=null and roleName!='' ">
-		<!-- 5 -->role_name=#{roleName},
+		<if test="accountId!=null and accountId!='' ">
+		<!-- 5 -->account_id=#{accountId},
 		</if>
-		<if test="roleCode!=null and roleCode!='' ">
-		<!-- 6 -->role_code=#{roleCode},
+		<if test="userId!=null and userId!='' ">
+		<!-- 6 -->user_id=#{userId},
+		</if>
+		<if test="money!=null and money!='' ">
+		<!-- 7 -->money=#{money},
+		</if>
+		<if test="dealType!=null and dealType!='' ">
+		<!-- 8 -->deal_type=#{dealType},
 		</if>
 		<if test="description!=null and description!='' ">
-		<!-- 7 -->description=#{description}
+		<!-- 9 -->description=#{description}
 		</if>
 
 		</set>
 	</sql>
 
 	<delete id="delete">
-		delete from role where id = #{id}
+		delete from deal_history where id = #{id}
 	</delete>
 
-	<select id="find" resultMap="RoleResultMap">
-		select * from role where id
+	<select id="find" resultMap="DealHistoryResultMap">
+		select * from deal_history where id
 		= #{id}
 	</select>
 
-	<select id="findVo" resultMap="RoleVoResultMap">
-		select * from role where
+	<select id="findVo" resultMap="DealHistoryVoResultMap">
+		select * from deal_history where
 		id = #{id}
 	</select>
 
-	<select id="selectBySo" resultMap="RoleResultMap">
-		select t.* from role t
+	<select id="selectBySo" resultMap="DealHistoryResultMap">
+		select t.* from deal_history t
 		<include refid="soSqlFilter" />
 	</select>
 
-	<select id="selectVoBySo" resultMap="RoleVoResultMap">
-		select t.* from role t
+	<select id="selectVoBySo" resultMap="DealHistoryVoResultMap">
+		select t.* from deal_history t
 		<include refid="soSqlFilter" />
 	</select>
 
 	<select id="selectCountBySo" resultType="int">
-		select count(1) from role t
+		select count(1) from deal_history t
 		<include refid="soSqlFilter" />
 	</select>
 
 	<delete id="deleteByIds" parameterType="map">
-		delete from role t where t.id in
+		delete from deal_history t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
@@ -131,23 +145,23 @@
 	</delete>
 
 	<delete id="deleteByIdList">
-		delete from role t where t.id in
+		delete from deal_history t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
 		</foreach>
 	</delete>
 
-	<select id="selectVoByIdList" resultMap="RoleVoResultMap">
-		select * from role t where t.id in
+	<select id="selectVoByIdList" resultMap="DealHistoryVoResultMap">
+		select * from deal_history t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
 		</foreach>
 	</select>
 
-	<select id="selectByIdList" resultMap="RoleResultMap">
-		select * from role t where t.id in
+	<select id="selectByIdList" resultMap="DealHistoryResultMap">
+		select * from deal_history t where t.id in
 		<foreach collection="list" index="dex" item="item" open="("
 			close=")" separator=",">
 			#{item}
@@ -162,11 +176,17 @@
 		<if test="updaterName !=null ">
 			 and t.updater_name = #{updaterName}
 		</if>
-		<if test="roleName !=null ">
-			 and t.role_name = #{roleName}
+		<if test="accountId !=null ">
+			 and t.account_id = #{accountId}
 		</if>
-		<if test="roleCode !=null ">
-			 and t.role_code = #{roleCode}
+		<if test="userId !=null ">
+			 and t.user_id = #{userId}
+		</if>
+		<if test="money !=null ">
+			 and t.money = #{money}
+		</if>
+		<if test="dealType !=null ">
+			 and t.deal_type = #{dealType}
 		</if>
 		<if test="description !=null ">
 			 and t.description = #{description}
@@ -177,8 +197,5 @@
 	<!-- CRUD end -->
 
 	<!-- business begin -->
-	<select id="findRolesByUserId" resultMap="RoleVoResultMap" parameterType="long">
-		select * from user_role ur left join role r on ur.role_id  = r.id where ur.user_id = #{userId};
-	</select>
 	<!-- business end -->
 </mapper>

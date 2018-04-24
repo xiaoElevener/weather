@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 定时器
  * @author xiao_elevener
  * @date 2018-03-24 15:31
  */
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class WechatTimer {
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
     private WechatProperties wechatProperties;

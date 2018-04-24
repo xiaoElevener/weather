@@ -45,6 +45,6 @@ public class AbstractVo implements Serializable {
     /**
      * 乐观锁
      */
-    private int lockVersion = 0;
+    private Integer lockVersion = 0;
 
 }

@@ -47,8 +47,9 @@ xinzhi: #心知天气
   uid: U17A127EEB
   key: swtu8zfjnoqwpfjc
   weatherApi:  https://api.seniverse.com/v3/weather/now.json
+
 mybatis:
-  type-aliases-package: com.xiao.weather.entity;com.xiao.weather.common.vo
+  type-aliases-package: com.xiao.weather.entity;com.xiao.weather.common.vo;
   mapper-locations: classpath:mappers/*.xml
 
 

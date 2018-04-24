@@ -1,0 +1,20 @@
+package com.xiao.weather.common.so.account;
+
+import lombok.Data;
+
+/**
+ * @author xiao_elevener
+ * @date 2018-04-23 10:58
+ */
+@Data
+public class AccountSo {
+    /**
+     * 用户id
+     */
+    private Long userId;
+
+    /**
+     * 余额
+     */
+    private double balance;
+}
