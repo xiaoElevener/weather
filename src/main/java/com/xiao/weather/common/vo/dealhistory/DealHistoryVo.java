@@ -15,7 +15,7 @@ import lombok.Data;
 public class DealHistoryVo extends AbstractVo{
 
     @ApiModelProperty("账户id")
-    private String accountId;
+    private Long accountId;
 
     @ApiModelProperty("用户id")
     private Long userId;

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +36,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
     @Override
     public void createUser(UserVo userVo) {
         checkUser(userVo);
+        userVo.setPasswordErrorTimes(0);
         Long userId = userDao.insert(dozer.convert(userVo, User.class));
         createAccount(userId);
     }
@@ -116,9 +118,10 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
 
     @Override
     public UserVo login(UserVo userVo) {
-        //TODO
         userVo.setLockVersion(null);
         UserVo user = userDao.findUser(userVo);
+        user.setLastAttemptedLoginTime(new Date());
+        userDao.update(dozer.convert(user, User.class));
         return user;
     }
 

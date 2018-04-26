@@ -1,201 +1,228 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiao.weather.dao.dealhistory.DealHistoryDao">
 
-	<!-- resultMap begin -->
-	<resultMap type="DealHistory" id="DealHistoryResultMap">
-				<!-- 0 --><result property="id"  column="id" />
-		<!-- 1 --><result property="creatorName"  column="creator_name" />
-		<!-- 2 --><result property="updaterName"  column="updater_name" />
-		<!-- 3 --><result property="createdTime"  column="created_time" />
-		<!-- 4 --><result property="updatedTime"  column="updated_time" />
-		<!-- 5 --><result property="lockVersion"  column="lock_version" />
-		<!-- 6 --><result property="accountId"  column="account_id" />
-		<!-- 7 --><result property="userId"  column="user_id" />
-		<!-- 8 --><result property="money"  column="money" />
-		<!-- 9 --><result property="dealType"  column="deal_type" />
-		<!-- 10 --><result property="description"  column="description" />
+    <!-- resultMap begin -->
+    <resultMap type="DealHistory" id="DealHistoryResultMap">
+        <!-- 0 -->
+        <result property="id" column="id"/>
+        <!-- 1 -->
+        <result property="creatorName" column="creator_name"/>
+        <!-- 2 -->
+        <result property="updaterName" column="updater_name"/>
+        <!-- 3 -->
+        <result property="createdTime" column="created_time"/>
+        <!-- 4 -->
+        <result property="updatedTime" column="updated_time"/>
+        <!-- 5 -->
+        <result property="lockVersion" column="lock_version"/>
+        <!-- 6 -->
+        <result property="accountId" column="account_id"/>
+        <!-- 7 -->
+        <result property="userId" column="user_id"/>
+        <!-- 8 -->
+        <result property="money" column="money"/>
+        <!-- 9 -->
+        <result property="dealType" column="deal_type"/>
+        <!-- 10 -->
+        <result property="description" column="description"/>
 
-	</resultMap>
+    </resultMap>
 
-	<resultMap type="DealHistoryVo" id="DealHistoryVoResultMap">
-				<!-- 0 --><result property="id"  column="id" />
-		<!-- 1 --><result property="creatorName"  column="creator_name" />
-		<!-- 2 --><result property="updaterName"  column="updater_name" />
-		<!-- 3 --><result property="createdTime"  column="created_time" />
-		<!-- 4 --><result property="updatedTime"  column="updated_time" />
-		<!-- 5 --><result property="lockVersion"  column="lock_version" />
-		<!-- 6 --><result property="accountId"  column="account_id" />
-		<!-- 7 --><result property="userId"  column="user_id" />
-		<!-- 8 --><result property="money"  column="money" />
-		<!-- 9 --><result property="dealType"  column="deal_type" />
-		<!-- 10 --><result property="description"  column="description" />
+    <resultMap type="DealHistoryVo" id="DealHistoryVoResultMap">
+        <!-- 0 -->
+        <result property="id" column="id"/>
+        <!-- 1 -->
+        <result property="creatorName" column="creator_name"/>
+        <!-- 2 -->
+        <result property="updaterName" column="updater_name"/>
+        <!-- 3 -->
+        <result property="createdTime" column="created_time"/>
+        <!-- 4 -->
+        <result property="updatedTime" column="updated_time"/>
+        <!-- 5 -->
+        <result property="lockVersion" column="lock_version"/>
+        <!-- 6 -->
+        <result property="accountId" column="account_id"/>
+        <!-- 7 -->
+        <result property="userId" column="user_id"/>
+        <!-- 8 -->
+        <result property="money" column="money"/>
+        <!-- 9 -->
+        <result property="dealType" column="deal_type"/>
+        <!-- 10 -->
+        <result property="description" column="description"/>
 
-	</resultMap>
-	<!-- resultMap end -->
+    </resultMap>
+    <!-- resultMap end -->
 
-	<!-- CRUD begin -->
-	<insert id="insert">
-				insert into deal_history(
-		<!-- 0 -->creator_name,
-		<!-- 1 -->updater_name,
-		<!-- 2 -->created_time,
-		<!-- 3 -->updated_time,
-		<!-- 4 -->lock_version,
-		<!-- 5 -->account_id,
-		<!-- 6 -->user_id,
-		<!-- 7 -->money,
-		<!-- 8 -->deal_type,
-		<!-- 9 -->description
-		) 
-		values(
-		<!-- 0 -->#{creatorName},
-		<!-- 1 -->#{updaterName},
-		<!-- 2 -->#{createdTime},
-		<!-- 3 -->#{updatedTime},
-		<!-- 4 -->#{lockVersion},
-		<!-- 5 -->#{accountId},
-		<!-- 6 -->#{userId},
-		<!-- 7 -->#{money},
-		<!-- 8 -->#{dealType},
-		<!-- 9 -->#{description}
-		)
-		<selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
- 			select LAST_INSERT_ID()
-		</selectKey>
+    <!-- CRUD begin -->
+    <insert id="insert">
+        insert into deal_history(
+        <!-- 0 -->creator_name,
+        <!-- 1 -->updater_name,
+        <!-- 2 -->created_time,
+        <!-- 3 -->updated_time,
+        <!-- 4 -->lock_version,
+        <!-- 5 -->account_id,
+        <!-- 6 -->user_id,
+        <!-- 7 -->money,
+        <!-- 8 -->deal_type,
+        <!-- 9 -->description
+        )
+        values(
+        <!-- 0 -->#{creatorName},
+        <!-- 1 -->#{updaterName},
+        <!-- 2 -->#{createdTime},
+        <!-- 3 -->#{updatedTime},
+        <!-- 4 -->#{lockVersion},
+        <!-- 5 -->#{accountId},
+        <!-- 6 -->#{userId},
+        <!-- 7 -->#{money},
+        <!-- 8 -->#{dealType},
+        <!-- 9 -->#{description}
+        )
+        <selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
 
-	</insert>
+    </insert>
 
-	<update id="update">
-			 update deal_history
-		<include refid="updateSetSql" />
-		where id=#{id} and lock_version=#{lockVersion}
-	</update>
+    <update id="update">
+        update deal_history
+        <include refid="updateSetSql"/>
+        where id=#{id} and lock_version=#{lockVersion}
+    </update>
 
-	<sql id="updateSetSql">
-		<set>
-					<if test="creatorName!=null and creatorName!='' ">
-		<!-- 0 -->creator_name=#{creatorName},
-		</if>
-		<if test="updaterName!=null and updaterName!='' ">
-		<!-- 1 -->updater_name=#{updaterName},
-		</if>
-		<if test="createdTime!=null">
-		<!-- 2 -->created_time=#{createdTime},
-		</if>
-		<if test="updatedTime!=null">
-		<!-- 3 -->updated_time=#{updatedTime},
-		</if>
-		<!-- 4 -->lock_version=#{lockVersion}+1,
-		<if test="accountId!=null and accountId!='' ">
-		<!-- 5 -->account_id=#{accountId},
-		</if>
-		<if test="userId!=null and userId!='' ">
-		<!-- 6 -->user_id=#{userId},
-		</if>
-		<if test="money!=null and money!='' ">
-		<!-- 7 -->money=#{money},
-		</if>
-		<if test="dealType!=null and dealType!='' ">
-		<!-- 8 -->deal_type=#{dealType},
-		</if>
-		<if test="description!=null and description!='' ">
-		<!-- 9 -->description=#{description}
-		</if>
+    <sql id="updateSetSql">
+        <set>
+            <if test="creatorName!=null and creatorName!='' ">
+                <!-- 0 -->creator_name=#{creatorName},
+            </if>
+            <if test="updaterName!=null and updaterName!='' ">
+                <!-- 1 -->updater_name=#{updaterName},
+            </if>
+            <if test="createdTime!=null">
+                <!-- 2 -->created_time=#{createdTime},
+            </if>
+            <if test="updatedTime!=null">
+                <!-- 3 -->updated_time=#{updatedTime},
+            </if>
+            <!-- 4 -->lock_version=#{lockVersion}+1,
+            <if test="accountId!=null ">
+                <!-- 5 -->account_id=#{accountId},
+            </if>
+            <if test="userId!=null">
+                <!-- 6 -->user_id=#{userId},
+            </if>
+            <if test="money!=null">
+                <!-- 7 -->money=#{money},
+            </if>
+            <if test="dealType!=null">
+                <!-- 8 -->deal_type=#{dealType},
+            </if>
+            <if test="description!=null">
+                <!-- 9 -->description=#{description}
+            </if>
 
-		</set>
-	</sql>
+        </set>
+    </sql>
 
-	<delete id="delete">
+    <delete id="delete">
 		delete from deal_history where id = #{id}
 	</delete>
 
-	<select id="find" resultMap="DealHistoryResultMap">
+    <select id="find" resultMap="DealHistoryResultMap">
 		select * from deal_history where id
 		= #{id}
 	</select>
 
-	<select id="findVo" resultMap="DealHistoryVoResultMap">
+    <select id="findVo" resultMap="DealHistoryVoResultMap">
 		select * from deal_history where
 		id = #{id}
 	</select>
 
-	<select id="selectBySo" resultMap="DealHistoryResultMap">
-		select t.* from deal_history t
-		<include refid="soSqlFilter" />
-	</select>
+    <select id="selectBySo" resultMap="DealHistoryResultMap">
+        select t.* from deal_history t
+        <include refid="soSqlFilter"/>
+    </select>
 
-	<select id="selectVoBySo" resultMap="DealHistoryVoResultMap">
-		select t.* from deal_history t
-		<include refid="soSqlFilter" />
-	</select>
+    <select id="selectVoBySo" resultMap="DealHistoryVoResultMap">
+        select t.* from deal_history t
+        <include refid="soSqlFilter"/>
+    </select>
 
-	<select id="selectCountBySo" resultType="int">
-		select count(1) from deal_history t
-		<include refid="soSqlFilter" />
-	</select>
+    <select id="selectCountBySo" resultType="int">
+        select count(1) from deal_history t
+        <include refid="soSqlFilter"/>
+    </select>
 
-	<delete id="deleteByIds" parameterType="map">
-		delete from deal_history t where t.id in
-		<foreach collection="list" index="dex" item="item" open="("
-			close=")" separator=",">
-			#{item}
-		</foreach>
-	</delete>
+    <delete id="deleteByIds" parameterType="map">
+        delete from deal_history t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
 
-	<delete id="deleteByIdList">
-		delete from deal_history t where t.id in
-		<foreach collection="list" index="dex" item="item" open="("
-			close=")" separator=",">
-			#{item}
-		</foreach>
-	</delete>
+    <delete id="deleteByIdList">
+        delete from deal_history t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
 
-	<select id="selectVoByIdList" resultMap="DealHistoryVoResultMap">
-		select * from deal_history t where t.id in
-		<foreach collection="list" index="dex" item="item" open="("
-			close=")" separator=",">
-			#{item}
-		</foreach>
-	</select>
+    <select id="selectVoByIdList" resultMap="DealHistoryVoResultMap">
+        select * from deal_history t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
 
-	<select id="selectByIdList" resultMap="DealHistoryResultMap">
-		select * from deal_history t where t.id in
-		<foreach collection="list" index="dex" item="item" open="("
-			close=")" separator=",">
-			#{item}
-		</foreach>
-	</select>
+    <select id="selectByIdList" resultMap="DealHistoryResultMap">
+        select * from deal_history t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
 
-	<sql id="soSqlFilter">
-		<where>
-					<if test="creatorName !=null ">
-			 and t.creator_name = #{creatorName}
-		</if>
-		<if test="updaterName !=null ">
-			 and t.updater_name = #{updaterName}
-		</if>
-		<if test="accountId !=null ">
-			 and t.account_id = #{accountId}
-		</if>
-		<if test="userId !=null ">
-			 and t.user_id = #{userId}
-		</if>
-		<if test="money !=null ">
-			 and t.money = #{money}
-		</if>
-		<if test="dealType !=null ">
-			 and t.deal_type = #{dealType}
-		</if>
-		<if test="description !=null ">
-			 and t.description = #{description}
-		</if>
+    <sql id="soSqlFilter">
+        <where>
+            <if test="creatorName !=null ">
+                and t.creator_name = #{creatorName}
+            </if>
+            <if test="updaterName !=null ">
+                and t.updater_name = #{updaterName}
+            </if>
+            <if test="accountId !=null ">
+                and t.account_id = #{accountId}
+            </if>
+            <if test="userId !=null ">
+                and t.user_id = #{userId}
+            </if>
+            <if test="money !=null ">
+                and t.money = #{money}
+            </if>
+            <if test="dealType !=null ">
+                and t.deal_type = #{dealType}
+            </if>
+            <if test="description !=null ">
+                and t.description = #{description}
+            </if>
 
-		</where>
-	</sql>
-	<!-- CRUD end -->
+        </where>
+    </sql>
+    <!-- CRUD end -->
 
-	<!-- business begin -->
-	<!-- business end -->
+    <!-- business begin -->
+    <select id="getDailyStatistical" resultType="dailyStatisticalVo">
+    SELECT DATE_FORMAT( created_time, "%Y-%m-%d") as date, sum(money) as sum,deal_type as dealType
+      FROM deal_history where created_time > CURDATE() - #{day}
+      GROUP BY DATE_FORMAT( created_time, "%Y-%m-%d") ,deal_type;
+    </select>
+    <!-- business end -->
 </mapper>

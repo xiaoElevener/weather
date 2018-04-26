@@ -3,6 +3,7 @@ package com.xiao.weather.service.dealhistory;
 import com.xiao.weather.common.constant.DealType;
 import com.xiao.weather.common.exception.BizException;
 import com.xiao.weather.common.so.user.UserSo;
+import com.xiao.weather.common.vo.dealhistory.DailyStatisticalVo;
 import com.xiao.weather.common.vo.dealhistory.DealHistoryVo;
 import com.xiao.weather.common.vo.user.UserVo;
 import com.xiao.weather.dao.account.AccountDao;
@@ -41,11 +42,23 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
 
     private final String OVERDRAFT_TIMES = "overdraft_times";
 
+    private final String STATISTICAL_DAY = "statistical_day";
+
     @Override
     public void create(DealHistoryVo dealHistoryVo) {
         setUserId(dealHistoryVo);
         accountOptions(dealHistoryVo);
         dealHistoryDao.insert(dozer.convert(dealHistoryVo, DealHistory.class));
+    }
+
+    @Override
+    public List<DailyStatisticalVo> getDailyStatistical() {
+        PredefinedCode predefinedCode = predefinedCodeDao.findByCode(STATISTICAL_DAY);
+        if (predefinedCode == null) {
+            throw new BizException("预定义没有维护统计天数字段");
+        }
+        Integer day = Integer.valueOf(predefinedCode.getValue());
+        return dealHistoryDao.getDailyStatistical(day);
     }
 
     /**
@@ -74,7 +87,7 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
         if (account == null) {
             throw new BizException("账户异常");
         }
-
+        dealHistoryVo.setAccountId(account.getId());
         PredefinedCode predefinedCode = predefinedCodeDao.findByCode(OVERDRAFT_TIMES);
         if (account.getOverdraft() > Integer.valueOf(predefinedCode.getValue())) {
             throw new BizException("透支过多，账户被冻结");

@@ -13,12 +13,12 @@ public class DealHistorySo {
     /**
      * 账户id
      */
-    private String accountId;
+    private Long accountId;
 
     /**
      * 用户id
      */
-    private String userId;
+    private Long userId;
 
     /**
      * 金额

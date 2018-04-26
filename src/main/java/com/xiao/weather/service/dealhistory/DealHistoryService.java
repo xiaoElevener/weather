@@ -1,6 +1,9 @@
 package com.xiao.weather.service.dealhistory;
 
+import com.xiao.weather.common.vo.dealhistory.DailyStatisticalVo;
 import com.xiao.weather.common.vo.dealhistory.DealHistoryVo;
+
+import java.util.List;
 
 /**
  * @author xiao_elevener
@@ -14,4 +17,11 @@ public interface DealHistoryService {
      */
     void create(DealHistoryVo dealHistoryVo);
 
+
+    /**
+     * 获取近期交易统计
+     *
+     * @return
+     */
+    List<DailyStatisticalVo> getDailyStatistical();
 }

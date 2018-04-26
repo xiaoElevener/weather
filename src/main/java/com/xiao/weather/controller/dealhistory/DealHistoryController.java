@@ -1,11 +1,13 @@
 package com.xiao.weather.controller.dealhistory;
 
 import com.xiao.weather.common.vo.ResultVO;
+import com.xiao.weather.common.vo.dealhistory.DailyStatisticalVo;
 import com.xiao.weather.common.vo.dealhistory.DealHistoryVo;
 import com.xiao.weather.service.dealhistory.DealHistoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,4 +33,10 @@ public class DealHistoryController {
         return new ResultVO<>();
     }
 
+    @GetMapping("/dailyStatistical")
+    public ResultVO<DailyStatisticalVo> getDailyStatistical() {
+        ResultVO<DailyStatisticalVo> resultVO = new ResultVO<>();
+        resultVO.setVoList(dealHistoryService.getDailyStatistical());
+        return resultVO;
+    }
 }
