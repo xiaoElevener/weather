@@ -1,9 +1,11 @@
 package com.xiao.weather.dao.user;
 
 import com.xiao.weather.common.vo.user.UserVo;
-import org.springframework.stereotype.Repository;
 import com.xiao.weather.dao.core.BaseDao;
 import com.xiao.weather.entity.user.User;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author xiao_elevener
@@ -23,6 +25,13 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     @Override
     public UserVo findUser(UserVo userVo) {
         return sqlSession.selectOne(getStatementPrefix() + FIND_USER, userVo);
+    }
+
+    private final String GET_LOGIN_NAME_LIST = "getLoginNameList";
+
+    @Override
+    public List<String> getLoginNameList() {
+        return sqlSession.selectList(getStatementPrefix() + GET_LOGIN_NAME_LIST);
     }
 }
 

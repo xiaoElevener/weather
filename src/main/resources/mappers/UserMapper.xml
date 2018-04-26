@@ -263,5 +263,10 @@
 		and locked = 0
 	</select>
 
+    <select id="getLoginNameList" resultType="String">
+        select login_name from user
+        where locked = 0
+    </select>
+
     <!-- business end -->
 </mapper>

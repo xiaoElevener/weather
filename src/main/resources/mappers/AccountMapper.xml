@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiao.weather.dao.account.AccountDao">
+
+    <!-- resultMap begin -->
+    <resultMap type="Account" id="AccountResultMap">
+        <!-- 0 -->
+        <result property="id" column="id"/>
+        <!-- 1 -->
+        <result property="creatorName" column="creator_name"/>
+        <!-- 2 -->
+        <result property="updaterName" column="updater_name"/>
+        <!-- 3 -->
+        <result property="createdTime" column="created_time"/>
+        <!-- 4 -->
+        <result property="updatedTime" column="updated_time"/>
+        <!-- 5 -->
+        <result property="lockVersion" column="lock_version"/>
+        <!-- 6 -->
+        <result property="userId" column="user_id"/>
+        <!-- 7 -->
+        <result property="balance" column="balance"/>
+        <!-- 8 -->
+        <result property="overdraft" column="overdraft"/>
+
+    </resultMap>
+
+    <resultMap type="AccountVo" id="AccountVoResultMap">
+        <!-- 0 -->
+        <result property="id" column="id"/>
+        <!-- 1 -->
+        <result property="creatorName" column="creator_name"/>
+        <!-- 2 -->
+        <result property="updaterName" column="updater_name"/>
+        <!-- 3 -->
+        <result property="createdTime" column="created_time"/>
+        <!-- 4 -->
+        <result property="updatedTime" column="updated_time"/>
+        <!-- 5 -->
+        <result property="lockVersion" column="lock_version"/>
+        <!-- 6 -->
+        <result property="userId" column="user_id"/>
+        <!-- 7 -->
+        <result property="balance" column="balance"/>
+        <!-- 8 -->
+        <result property="overdraft" column="overdraft"/>
+
+    </resultMap>
+    <!-- resultMap end -->
+
+    <!-- CRUD begin -->
+    <insert id="insert">
+        insert into account(
+        <!-- 0 -->creator_name,
+        <!-- 1 -->updater_name,
+        <!-- 2 -->created_time,
+        <!-- 3 -->updated_time,
+        <!-- 4 -->lock_version,
+        <!-- 5 -->user_id,
+        <!-- 6 -->balance,
+        <!-- 7 -->overdraft
+        )
+        values(
+        <!-- 0 -->#{creatorName},
+        <!-- 1 -->#{updaterName},
+        <!-- 2 -->#{createdTime},
+        <!-- 3 -->#{updatedTime},
+        <!-- 4 -->#{lockVersion},
+        <!-- 5 -->#{userId},
+        <!-- 6 -->#{balance},
+        <!-- 7 -->#{overdraft}
+        )
+        <selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+
+    </insert>
+
+    <update id="update">
+        update account
+        <include refid="updateSetSql"/>
+        where id=#{id} and lock_version=#{lockVersion}
+    </update>
+
+    <sql id="updateSetSql">
+        <set>
+            <if test="creatorName!=null and creatorName!='' ">
+                <!-- 0 -->creator_name=#{creatorName},
+            </if>
+            <if test="updaterName!=null and updaterName!='' ">
+                <!-- 1 -->updater_name=#{updaterName},
+            </if>
+            <if test="createdTime!=null ">
+                <!-- 2 -->created_time=#{createdTime},
+            </if>
+            <if test="updatedTime!=null ">
+                <!-- 3 -->updated_time=#{updatedTime},
+            </if>
+            <!-- 4 -->lock_version=#{lockVersion}+1,
+            <if test="userId!=null and userId!='' ">
+                <!-- 5 -->user_id=#{userId},
+            </if>
+            <if test="balance!=null and balance!='' ">
+                <!-- 6 -->balance=#{balance},
+            </if>
+            <if test="overdraft!=null and overdraft!='' ">
+                <!-- 7 -->overdraft=#{overdraft}
+            </if>
+
+        </set>
+    </sql>
+
+    <delete id="delete">
+		delete from account where id = #{id}
+	</delete>
+
+    <select id="find" resultMap="AccountResultMap">
+		select * from account where id
+		= #{id}
+	</select>
+
+    <select id="findVo" resultMap="AccountVoResultMap">
+		select * from account where
+		id = #{id}
+	</select>
+
+    <select id="selectBySo" resultMap="AccountResultMap">
+        select t.* from account t
+        <include refid="soSqlFilter"/>
+    </select>
+
+    <select id="selectVoBySo" resultMap="AccountVoResultMap">
+        select t.* from account t
+        <include refid="soSqlFilter"/>
+    </select>
+
+    <select id="selectCountBySo" resultType="int">
+        select count(1) from account t
+        <include refid="soSqlFilter"/>
+    </select>
+
+    <delete id="deleteByIds" parameterType="map">
+        delete from account t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdList">
+        delete from account t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="selectVoByIdList" resultMap="AccountVoResultMap">
+        select * from account t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectByIdList" resultMap="AccountResultMap">
+        select * from account t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <sql id="soSqlFilter">
+        <where>
+            <if test="creatorName !=null ">
+                and t.creator_name = #{creatorName}
+            </if>
+            <if test="updaterName !=null ">
+                and t.updater_name = #{updaterName}
+            </if>
+            <if test="userId !=null ">
+                and t.user_id = #{userId}
+            </if>
+            <if test="balance !=null ">
+                and t.balance = #{balance}
+            </if>
+            <if test="overdraft !=null ">
+                and t.overdraft = #{overdraft}
+            </if>
+
+        </where>
+    </sql>
+    <!-- CRUD end -->
+
+    <!-- business begin -->
+    <select id="findByUserId" resultMap="AccountResultMap">
+		select * from account where user_id =#{userId}
+	</select>
+
+    <!-- business end -->
+</mapper>

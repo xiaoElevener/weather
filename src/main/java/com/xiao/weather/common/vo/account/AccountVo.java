@@ -17,5 +17,8 @@ public class AccountVo extends AbstractVo{
     private Long userId;
 
     @ApiModelProperty("余额")
-    private double balance;
+    private Double balance;
+
+    @ApiModelProperty("欠费次数")
+    private Integer overdraft;
 }

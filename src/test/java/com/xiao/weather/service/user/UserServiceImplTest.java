@@ -34,4 +34,9 @@ public class UserServiceImplTest extends WeatherApplicationTests{
     public void login() throws Exception {
     }
 
+    @Test
+    public void getLoginNameList() {
+        Assert.notNull(userService.getLoginNameList(), "用户登录列表");
+    }
+
 }

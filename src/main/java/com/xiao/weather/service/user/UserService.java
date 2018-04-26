@@ -46,4 +46,11 @@ public interface UserService {
      * @return
      */
     int countByUserSo(UserSo userSo);
+
+    /**
+     * 获取未锁定的用户登录名
+     *
+     * @return
+     */
+    List<String> getLoginNameList();
 }

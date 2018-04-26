@@ -37,6 +37,7 @@
         <dozer.version>5.5.1</dozer.version>
         <druid>1.0.29</druid>
         <mysql-connector-java>5.1.38</mysql-connector-java>
+        <shiro.version>1.2.2</shiro.version>
     </properties>
 
     <dependencies>
@@ -209,6 +210,33 @@
             <version>${mysql-connector-java}</version>
         </dependency>
 
+        <!-- shiro start -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-quartz</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+        <!-- shiro end -->
 
     </dependencies>
 

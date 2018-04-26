@@ -7,11 +7,14 @@ import com.xiao.weather.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.lang.reflect.Method;
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author xiao_elevener
@@ -44,6 +47,7 @@ public class UserController {
 
 
     @PutMapping(value = "/user/{id}")
+    @ApiOperation("修改用户")
     public ResultVO<String> updateUser(@PathVariable("id") long id, @RequestBody UserVo userVo) {
         userVo.setId(id);
         userService.updateUser(userVo);
@@ -51,6 +55,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/user/{id}")
+    @ApiOperation("删除用户")
     public ResultVO<String> deleteUser(@PathVariable(value = "id") long id) {
         userService.deleteUser(id);
         return new ResultVO<>();
@@ -58,6 +63,7 @@ public class UserController {
 
 
     @PutMapping(value = "/user/login")
+    @ApiOperation("用户登录")
     public ResultVO<UserVo> login(@RequestBody UserVo userVo) {
         UserVo user = userService.login(userVo);
         ResultVO<UserVo> resultVO = new ResultVO<>();
@@ -68,6 +74,12 @@ public class UserController {
             resultVO.setVo(userVo);
         }
         return resultVO;
+    }
+
+    @GetMapping(value = "/user/loginNameList")
+    @ApiOperation("获取登录名")
+    public ResultVO<String> getLoginNameList() {
+        return new ResultVO<>(userService.getLoginNameList());
     }
 
 

@@ -16,5 +16,10 @@ public class AccountSo {
     /**
      * 余额
      */
-    private double balance;
+    private Double balance;
+
+    /**
+     * 欠费次数
+     */
+    private Integer overdraft;
 }

@@ -8,6 +8,13 @@ import com.xiao.weather.entity.predefinedcode.PredefinedCode;
  */
 public interface PredefinedCodeDao extends Dao<PredefinedCode> {
 
+    /**
+     * 通过code查预定义编码
+     *
+     * @param code
+     * @return
+     */
+    PredefinedCode findByCode(String code);
 }
 
 

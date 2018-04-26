@@ -23,7 +23,7 @@ public class DealHistorySo {
     /**
      * 金额
      */
-    private double money;
+    private Double money;
 
     /**
      * 类型

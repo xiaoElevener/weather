@@ -1,17 +1,18 @@
 package com.xiao.weather.service.user;
 
-import com.sun.org.apache.regexp.internal.RE;
 import com.xiao.weather.common.exception.BizException;
 import com.xiao.weather.common.so.user.UserSo;
 import com.xiao.weather.common.vo.user.UserVo;
+import com.xiao.weather.dao.account.AccountDao;
 import com.xiao.weather.dao.role.RoleDao;
 import com.xiao.weather.dao.user.UserDao;
+import com.xiao.weather.entity.account.Account;
 import com.xiao.weather.entity.user.User;
+import com.xiao.weather.service.core.AbstractServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.xiao.weather.service.core.AbstractServiceImpl;
 
 import java.util.List;
 
@@ -28,10 +29,27 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
     @Autowired
     private RoleDao roleDao;
 
+    @Autowired
+    private AccountDao accountDao;
+
     @Override
     public void createUser(UserVo userVo) {
         checkUser(userVo);
-        userDao.insert(dozer.convert(userVo, User.class));
+        Long userId = userDao.insert(dozer.convert(userVo, User.class));
+        createAccount(userId);
+    }
+
+    /**
+     * 创建账户
+     *
+     * @param userId
+     */
+    public void createAccount(Long userId) {
+        Account account = new Account();
+        account.setUserId(userId);
+        account.setBalance(0D);
+        account.setOverdraft(0);
+        accountDao.insert(account);
     }
 
     /**
@@ -108,7 +126,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
     public List<UserVo> findUserVosBySo(UserSo userSo) {
         List<UserVo> userVoList = userDao.selectPaginationVoBySo(userSo);
         userVoList.stream().forEach(userVo -> userVo.setRoles(roleDao.findRolesByUserId(userVo.getId())));
-        return  userVoList;
+        return userVoList;
     }
 
 
@@ -120,5 +138,10 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
     @Override
     public int countByUserSo(UserSo userSo) {
         return userDao.selectCountBySo(userSo);
+    }
+
+    @Override
+    public List<String> getLoginNameList() {
+        return userDao.getLoginNameList();
     }
 }

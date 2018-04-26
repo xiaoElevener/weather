@@ -17,18 +17,17 @@ public class DealHistoryVo extends AbstractVo{
     @ApiModelProperty("账户id")
     private String accountId;
 
-
     @ApiModelProperty("用户id")
-    private String userId;
+    private Long userId;
 
+    @ApiModelProperty("用户账号")
+    private String loginName;
 
     @ApiModelProperty("金额")
-    private double money;
-
+    private Double money;
 
     @ApiModelProperty("类型")
     private DealType dealType;
-
 
     @ApiModelProperty("描述")
     private String description;

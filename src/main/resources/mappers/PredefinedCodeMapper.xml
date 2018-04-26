@@ -177,5 +177,8 @@
 	<!-- CRUD end -->
 
 	<!-- business begin -->
+	<select id="findByCode" resultMap="PredefinedCodeResultMap">
+		select * from predefined_code where code = #{code}
+	</select>
 	<!-- business end -->
 </mapper>

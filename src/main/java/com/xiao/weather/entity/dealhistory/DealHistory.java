@@ -28,7 +28,7 @@ public class DealHistory extends AbstractEntityBase {
     /**
      * 金额
      */
-    private double money;
+    private Double money;
 
     /**
      * 类型
