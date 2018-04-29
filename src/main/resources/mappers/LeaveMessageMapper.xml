@@ -129,6 +129,7 @@
     <select id="selectCountBySo" resultType="int">
         select count(1) from leave_message t
         <include refid="soSqlFilter"/>
+        order by id desc
     </select>
 
     <delete id="deleteByIds" parameterType="map">

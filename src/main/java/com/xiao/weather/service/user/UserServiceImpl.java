@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,7 +76,12 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
         }
     }
 
-
+    /**
+     * 获取条件查询用户数
+     *
+     * @param loginName
+     * @return
+     */
     private int getCountByLoginName(String loginName) {
         UserSo userSo = new UserSo();
         //保留被锁定账户的登陆名
@@ -120,9 +124,9 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
     public UserVo login(UserVo userVo) {
         userVo.setLockVersion(null);
         UserVo user = userDao.findUser(userVo);
-        user.setLastAttemptedLoginTime(new Date());
-        userDao.update(dozer.convert(user, User.class));
+        updateLastAttemptedLoginTime(userVo.getLoginName());
         return user;
+
     }
 
     @Override
@@ -147,4 +151,15 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
     public List<String> getLoginNameList() {
         return userDao.getLoginNameList();
     }
+
+    /**
+     * 更新用户尝试登录时间
+     *
+     * @param loginName
+     */
+    private void updateLastAttemptedLoginTime(String loginName) {
+        userDao.updateLastAttemptedLoginTime(loginName);
+    }
+
+
 }

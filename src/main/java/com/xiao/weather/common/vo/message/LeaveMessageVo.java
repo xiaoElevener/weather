@@ -1,10 +1,9 @@
 package com.xiao.weather.common.vo.message;
 
+import com.xiao.weather.common.vo.AbstractVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.util.Date;
 
 /**
  * 微信留言
@@ -14,7 +13,9 @@ import java.util.Date;
  */
 @Data
 @ApiModel("微信留言")
-public class LeaveMessageVo {
+public class LeaveMessageVo extends AbstractVo {
+
+    private static final long serialVersionUID = -7342786876584620751L;
 
     @ApiModelProperty("微信openId")
     private String openId;
@@ -22,6 +23,6 @@ public class LeaveMessageVo {
     @ApiModelProperty("内容")
     private String content;
 
-    @ApiModelProperty("创建时间")
-    private Date createTime;
+    @ApiModelProperty("用户名")
+    private String userName;
 }

@@ -278,5 +278,13 @@
         where locked = 0
     </select>
 
+    <update id="updateLastAttemptedLoginTime">
+        update user set last_attempted_login_time = now() where login_name = #{loginName}
+    </update>
+
+    <select id="findUserNameByOpenId" resultType="string">
+        select user_name from user where open_id = #{openId}
+    </select>
+
     <!-- business end -->
 </mapper>

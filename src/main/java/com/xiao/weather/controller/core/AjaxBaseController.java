@@ -42,7 +42,7 @@ public class AjaxBaseController {
         } else if (e instanceof UnauthorizedException) {
             packVo.setMessage("身份认证异常，请重新登录");
         } else {
-            packVo.setMessage("系统位置错误，请联系管理员处理");
+            packVo.setMessage("系统错误，请联系管理员处理");
         }
         return packVo;
     }
