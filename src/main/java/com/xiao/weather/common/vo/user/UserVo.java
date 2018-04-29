@@ -1,6 +1,5 @@
 package com.xiao.weather.common.vo.user;
 
-import java.util.List;
 import com.xiao.weather.common.vo.AbstractVo;
 import com.xiao.weather.entity.role.Role;
 import io.swagger.annotations.ApiModel;
@@ -9,6 +8,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author xiao_elevener
@@ -34,15 +34,18 @@ public class UserVo extends AbstractVo implements Serializable{
     @ApiModelProperty("加密盐值")
     private String salt;
 
-    @ApiModelProperty(value = "是否锁定")
+    @ApiModelProperty("是否锁定")
     private Boolean locked = Boolean.FALSE;
 
-    @ApiModelProperty(value = "最后尝试登陆时间")
+    @ApiModelProperty("最后尝试登陆时间")
     private Date lastAttemptedLoginTime;
 
-    @ApiModelProperty(value = "密码错误次数")
+    @ApiModelProperty("密码错误次数")
     private Integer passwordErrorTimes;
 
-    @ApiModelProperty(value = "用户拥有角色")
+    @ApiModelProperty("用户拥有角色")
     private List<Role> roles;
+
+    @ApiModelProperty("用户的openId")
+    private String openId;
 }

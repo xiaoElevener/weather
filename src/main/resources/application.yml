@@ -1,3 +1,8 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /weather
+
 spring:
   redis:
     host: 127.0.0.1

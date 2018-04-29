@@ -9,14 +9,24 @@
       "name": "菜单",
       "sub_button": [
         {
-          "type": "view",
-          "name": "搜索",
-          "url": "http://www.baidu.com/"
+          "type": "click",
+          "name": "余额查询",
+          "key": "balance"
         },
         {
           "type": "click",
-          "name": "赞一下我们",
-          "key": "V1001_GOOD"
+          "name": "绑定账号",
+          "key": "binding"
+        },
+        {
+          "type": "click",
+          "name": "忘记密码",
+          "key": "forget"
+        },
+        {
+          "type": "view",
+          "name": "登录",
+          "url": "http://xiao-wxsell.natapp1.cc/login"
         }
       ]
     }

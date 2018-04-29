@@ -2,8 +2,6 @@ package com.xiao.weather.entity.user;
 
 import com.xiao.weather.entity.AbstractEntityBase;
 import com.xiao.weather.util.annotation.DbInfo;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -60,6 +58,11 @@ public class User extends AbstractEntityBase implements Serializable{
      * 密码错误次数
      */
     private Integer passwordErrorTimes = 0;
+
+    /**
+     * 绑定的微信号
+     */
+    private String openId;
 
 
 }

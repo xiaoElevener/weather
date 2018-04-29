@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiao.weather.dao.message.LeaveMessageDao">
+
+    <!-- resultMap begin -->
+    <resultMap type="LeaveMessage" id="LeaveMessageResultMap">
+        <!-- 0 -->
+        <result property="id" column="id"/>
+        <!-- 1 -->
+        <result property="creatorName" column="creator_name"/>
+        <!-- 2 -->
+        <result property="updaterName" column="updater_name"/>
+        <!-- 3 -->
+        <result property="createdTime" column="created_time"/>
+        <!-- 4 -->
+        <result property="updatedTime" column="updated_time"/>
+        <!-- 5 -->
+        <result property="lockVersion" column="lock_version"/>
+        <!-- 6 -->
+        <result property="openId" column="open_id"/>
+        <!-- 7 -->
+        <result property="content" column="content"/>
+
+    </resultMap>
+
+    <resultMap type="LeaveMessageVo" id="LeaveMessageVoResultMap">
+        <!-- 0 -->
+        <result property="id" column="id"/>
+        <!-- 1 -->
+        <result property="creatorName" column="creator_name"/>
+        <!-- 2 -->
+        <result property="updaterName" column="updater_name"/>
+        <!-- 3 -->
+        <result property="createdTime" column="created_time"/>
+        <!-- 4 -->
+        <result property="updatedTime" column="updated_time"/>
+        <!-- 5 -->
+        <result property="lockVersion" column="lock_version"/>
+        <!-- 6 -->
+        <result property="openId" column="open_id"/>
+        <!-- 7 -->
+        <result property="content" column="content"/>
+
+    </resultMap>
+    <!-- resultMap end -->
+
+    <!-- CRUD begin -->
+    <insert id="insert">
+        insert into leave_message(
+        <!-- 0 -->creator_name,
+        <!-- 1 -->updater_name,
+        <!-- 2 -->created_time,
+        <!-- 3 -->updated_time,
+        <!-- 4 -->lock_version,
+        <!-- 5 -->open_id,
+        <!-- 6 -->content
+        )
+        values(
+        <!-- 0 -->#{creatorName},
+        <!-- 1 -->#{updaterName},
+        <!-- 2 -->#{createdTime},
+        <!-- 3 -->#{updatedTime},
+        <!-- 4 -->#{lockVersion},
+        <!-- 5 -->#{openId},
+        <!-- 6 -->#{content}
+        )
+        <selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+
+    </insert>
+
+    <update id="update">
+        update leave_message
+        <include refid="updateSetSql"/>
+        where id=#{id} and lock_version=#{lockVersion}
+    </update>
+
+    <sql id="updateSetSql">
+        <set>
+            <if test="creatorName!=null and creatorName!='' ">
+                <!-- 0 -->creator_name=#{creatorName},
+            </if>
+            <if test="updaterName!=null and updaterName!='' ">
+                <!-- 1 -->updater_name=#{updaterName},
+            </if>
+            <if test="createdTime!=null">
+                <!-- 2 -->created_time=#{createdTime},
+            </if>
+            <if test="updatedTime!=null">
+                <!-- 3 -->updated_time=#{updatedTime},
+            </if>
+            <!-- 4 -->lock_version=#{lockVersion}+1,
+            <if test="openId!=null and openId!='' ">
+                <!-- 5 -->open_id=#{openId},
+            </if>
+            <if test="content!=null and content!='' ">
+                <!-- 6 -->content=#{content}
+            </if>
+
+        </set>
+    </sql>
+
+    <delete id="delete">
+		delete from leave_message where id = #{id}
+	</delete>
+
+    <select id="find" resultMap="LeaveMessageResultMap">
+		select * from leave_message where id
+		= #{id}
+	</select>
+
+    <select id="findVo" resultMap="LeaveMessageVoResultMap">
+		select * from leave_message where
+		id = #{id}
+	</select>
+
+    <select id="selectBySo" resultMap="LeaveMessageResultMap">
+        select t.* from leave_message t
+        <include refid="soSqlFilter"/>
+    </select>
+
+    <select id="selectVoBySo" resultMap="LeaveMessageVoResultMap">
+        select t.* from leave_message t
+        <include refid="soSqlFilter"/>
+    </select>
+
+    <select id="selectCountBySo" resultType="int">
+        select count(1) from leave_message t
+        <include refid="soSqlFilter"/>
+    </select>
+
+    <delete id="deleteByIds" parameterType="map">
+        delete from leave_message t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIdList">
+        delete from leave_message t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="selectVoByIdList" resultMap="LeaveMessageVoResultMap">
+        select * from leave_message t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectByIdList" resultMap="LeaveMessageResultMap">
+        select * from leave_message t where t.id in
+        <foreach collection="list" index="dex" item="item" open="("
+                 close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <sql id="soSqlFilter">
+        <where>
+            <if test="creatorName !=null ">
+                and t.creator_name = #{creatorName}
+            </if>
+            <if test="updaterName !=null ">
+                and t.updater_name = #{updaterName}
+            </if>
+            <if test="openId !=null ">
+                and t.open_id = #{openId}
+            </if>
+            <if test="content !=null ">
+                and t.content = #{content}
+            </if>
+
+        </where>
+    </sql>
+    <!-- CRUD end -->
+
+    <!-- business begin -->
+    <!-- business end -->
+</mapper>

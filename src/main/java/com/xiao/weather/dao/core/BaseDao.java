@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.ParameterizedType;
@@ -213,7 +212,6 @@ public abstract class BaseDao<T extends AbstractEntityBase> implements Dao<T> {
     protected void fillCreateInfo4Bo(AbstractEntityBase bo) {
         bo.setCreatedTime(bo.getCreatedTime() == null ? 
         		          new Date() : bo.getCreatedTime());
-
         SecurityContext securityContext = SecurityContextHolder.getContext();
         if (securityContext != null && securityContext.getUser() != null) {
             bo.setCreatorName(securityContext.getUser().getUserName());

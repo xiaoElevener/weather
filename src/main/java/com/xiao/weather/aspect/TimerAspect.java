@@ -8,8 +8,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 定时器切面
@@ -22,7 +21,6 @@ import java.util.Date;
 @Slf4j
 public class TimerAspect {
 
-    private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 定时器切面
@@ -36,18 +34,15 @@ public class TimerAspect {
     public Object surround(ProceedingJoinPoint pjp) throws ParseException {
         String clazzName = pjp.getTarget().getClass().getName();
         String methodName = pjp.getSignature().getName();
-        Date startTime = format.parse(format.format(System.currentTimeMillis()));
-        log.info("定时任务开始:" + clazzName + "." + methodName + "   " + startTime);
+        log.info("定时任务开始:" + clazzName + "." + methodName + "   " + LocalDateTime.now());
 
         try {
-            Object o =  pjp.proceed();
-            return o;
+            return pjp.proceed();
         } catch (Throwable e) {
             e.printStackTrace();
             return null;
-        }finally {
-            Date endTime = format.parse(format.format(System.currentTimeMillis()));
-            log.info("定时任务结束:" + clazzName + "." + methodName + "   " + endTime);
+        } finally {
+            log.info("定时任务结束:" + clazzName + "." + methodName + "   " + LocalDateTime.now());
         }
 
     }

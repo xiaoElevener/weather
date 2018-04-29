@@ -40,4 +40,6 @@ public class UserSo extends BaseSo implements Serializable{
     @ApiModelProperty(value = "密码错误次数")
     private Integer passwordErrorTimes;
 
+    @ApiModelProperty("用户的openId")
+    private String openId;
 }
