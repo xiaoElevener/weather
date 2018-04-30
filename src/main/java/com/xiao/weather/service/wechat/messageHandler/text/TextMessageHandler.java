@@ -1,9 +1,10 @@
-package com.xiao.weather.service.wechat.messageHandler;
+package com.xiao.weather.service.wechat.messageHandler.text;
 
 import com.xiao.weather.common.constant.MsgType;
 import com.xiao.weather.dao.message.LeaveMessageDao;
 import com.xiao.weather.dao.predefinedcode.PredefinedCodeDao;
 import com.xiao.weather.entity.message.LeaveMessage;
+import com.xiao.weather.service.wechat.messageHandler.MessageHandler;
 import com.xiao.weather.util.WechatUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

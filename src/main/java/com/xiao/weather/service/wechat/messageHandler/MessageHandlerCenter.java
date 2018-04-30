@@ -1,6 +1,7 @@
 package com.xiao.weather.service.wechat.messageHandler;
 
-import com.alibaba.druid.support.json.JSONUtils;
+import com.xiao.weather.service.wechat.messageHandler.event.EventHandlerCenter;
+import com.xiao.weather.service.wechat.messageHandler.text.TextMessageHandler;
 import com.xiao.weather.util.WechatUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,9 @@ import org.springframework.stereotype.Component;
 import weixin.popular.bean.message.EventMessage;
 
 import javax.annotation.PostConstruct;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Iterator;
 
 /**
  * 消息处理中心
@@ -28,14 +29,17 @@ public class MessageHandlerCenter {
     private List<MessageHandler> messageHandlerList = new LinkedList<>();
 
     @Autowired
-    private EventMessageHandler eventMessageHandler;
+    private EventHandlerCenter eventHandlerCenter;
 
     @Autowired
-    private  TextMessageHandler textMessageHandler;
+    private TextMessageHandler textMessageHandler;
 
+    /**
+     * 微信消息处理器初始化,现在能够处理文本和事件
+     */
     @PostConstruct
     public void init() {
-        messageHandlerList.add(eventMessageHandler);
+        messageHandlerList.add(eventHandlerCenter);
         messageHandlerList.add(textMessageHandler);
     }
 

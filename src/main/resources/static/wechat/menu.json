@@ -3,7 +3,7 @@
     {
       "type": "click",
       "name": "今日天气",
-      "key": "nowWeather"
+      "key": "now_weather"
     },
     {
       "name": "菜单",
@@ -24,9 +24,9 @@
           "key": "forget"
         },
         {
-          "type": "view",
-          "name": "登录",
-          "url": "http://xiao-wxsell.natapp1.cc/login"
+          "type": "click",
+          "name": "交易查询",
+          "key": "deal_history"
         }
       ]
     }

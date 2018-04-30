@@ -44,10 +44,6 @@ public class WechatController {
         return echostr;
     }
 
-    @GetMapping("/bind")
-    public String redirectLogin() {
-        return "redirect:/login";
-    }
 
 
     private void printResponse(PrintWriter writer, EventMessage responseMessage) {

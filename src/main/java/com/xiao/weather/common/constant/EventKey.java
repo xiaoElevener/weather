@@ -14,7 +14,26 @@ public enum EventKey {
     /**
      * 点击菜单获取当前天气情况
      */
-    NOW_WEATHER("nowWeather");
+    NOW_WEATHER,
 
-    String eventKey;
+    /**
+     * 余额查询
+     */
+    BALANCE,
+
+    /**
+     * 账号绑定
+     */
+    BINDING,
+
+    /**
+     * 忘记密码
+     */
+    FORGET,
+
+    /**
+     * 交易查询
+     */
+    DEAL_HISTORY
+
 }

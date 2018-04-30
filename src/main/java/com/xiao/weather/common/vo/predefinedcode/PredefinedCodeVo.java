@@ -1,5 +1,6 @@
 package com.xiao.weather.common.vo.predefinedcode;
 
+import com.xiao.weather.common.vo.AbstractVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,8 +11,9 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-public class PredefinedCodeVo {
+public class PredefinedCodeVo extends AbstractVo {
 
+    private static final long serialVersionUID = 2265185073275613280L;
 
     @ApiModelProperty("编码")
     private String code;
