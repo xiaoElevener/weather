@@ -2,6 +2,7 @@ package com.xiao.weather.service.wechat.messageHandler.event.clickEvent;
 
 import com.xiao.weather.common.constant.EventType;
 import com.xiao.weather.service.wechat.messageHandler.event.EventHandler;
+import com.xiao.weather.service.wechat.messageHandler.event.clickEvent.balance.BalanceHandler;
 import com.xiao.weather.service.wechat.messageHandler.event.clickEvent.dealHistory.DealHistoryHandler;
 import com.xiao.weather.service.wechat.messageHandler.event.clickEvent.nowWeather.NowWeatherHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -35,10 +36,14 @@ public class ClickEventCenterHandler implements EventHandler {
     @Autowired
     private DealHistoryHandler dealHistoryHandler;
 
+    @Autowired
+    private BalanceHandler balanceHandler;
+
     @PostConstruct
     public void init() {
         eventKeyHandlerList.add(nowWeatherHandler);
         eventKeyHandlerList.add(dealHistoryHandler);
+        eventKeyHandlerList.add(balanceHandler);
     }
 
     @Override
