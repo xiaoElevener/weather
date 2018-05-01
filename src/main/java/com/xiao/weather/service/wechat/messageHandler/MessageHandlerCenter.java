@@ -44,6 +44,7 @@ public class MessageHandlerCenter {
     }
 
     public EventMessage handleEventMessage(EventMessage eventMessage) {
+        //TODO 消息去重
         Iterator<MessageHandler> iterator = messageHandlerList.iterator();
         while (iterator.hasNext()) {
             MessageHandler messageHandler = iterator.next();
@@ -54,5 +55,6 @@ public class MessageHandlerCenter {
         log.warn("无此消息类型处理器，eventMessage={}", eventMessage.toString());
         return null;
     }
+
 
 }

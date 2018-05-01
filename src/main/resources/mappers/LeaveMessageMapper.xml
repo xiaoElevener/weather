@@ -125,6 +125,7 @@
     <select id="selectVoBySo" resultMap="LeaveMessageVoResultMap">
         select t.* from leave_message t
         <include refid="soSqlFilter"/>
+        order by id desc
     </select>
 
     <select id="selectCountBySo" resultType="int">

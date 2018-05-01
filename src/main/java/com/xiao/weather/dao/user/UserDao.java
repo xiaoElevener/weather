@@ -47,7 +47,7 @@ public interface UserDao extends Dao<User> {
      * @param openId
      * @return
      */
-    String findUserNameByOpenId(String openId);
+    User findUserByOpenId(String openId);
 }
 
 

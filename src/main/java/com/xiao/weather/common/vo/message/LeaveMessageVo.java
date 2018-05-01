@@ -12,7 +12,7 @@ import lombok.Data;
  * @date 2018-04-28 21:59
  */
 @Data
-@ApiModel("微信留言")
+@ApiModel(value = "LeaveMessageVo", description = "微信留言")
 public class LeaveMessageVo extends AbstractVo {
 
     private static final long serialVersionUID = -7342786876584620751L;

@@ -224,5 +224,9 @@
       FROM deal_history where created_time > CURDATE() - #{day}
       GROUP BY DATE_FORMAT( created_time, "%Y-%m-%d") ,deal_type;
     </select>
+
+    <select id="getDealHistoryByUserId" resultMap="DealHistoryVoResultMap">
+        select * from deal_history where user_id = #{userId} order by created_time desc limit #{limit}
+    </select>
     <!-- business end -->
 </mapper>

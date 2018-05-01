@@ -10,7 +10,7 @@ import lombok.Data;
  * @date 2018-04-23 11:29
  */
 @Data
-@ApiModel
+@ApiModel(value = "PredefinedCodeVo", description = "预定义Vo")
 public class PredefinedCodeVo extends AbstractVo {
 
     private static final long serialVersionUID = 2265185073275613280L;

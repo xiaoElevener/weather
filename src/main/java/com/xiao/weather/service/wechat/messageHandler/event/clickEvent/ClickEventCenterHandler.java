@@ -2,6 +2,7 @@ package com.xiao.weather.service.wechat.messageHandler.event.clickEvent;
 
 import com.xiao.weather.common.constant.EventType;
 import com.xiao.weather.service.wechat.messageHandler.event.EventHandler;
+import com.xiao.weather.service.wechat.messageHandler.event.clickEvent.dealHistory.DealHistoryHandler;
 import com.xiao.weather.service.wechat.messageHandler.event.clickEvent.nowWeather.NowWeatherHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,13 @@ public class ClickEventCenterHandler implements EventHandler {
     @Autowired
     private NowWeatherHandler nowWeatherHandler;
 
+    @Autowired
+    private DealHistoryHandler dealHistoryHandler;
+
     @PostConstruct
     public void init() {
         eventKeyHandlerList.add(nowWeatherHandler);
+        eventKeyHandlerList.add(dealHistoryHandler);
     }
 
     @Override
@@ -46,7 +51,7 @@ public class ClickEventCenterHandler implements EventHandler {
         Iterator<EventKeyHandler> iterator = eventKeyHandlerList.iterator();
         while (iterator.hasNext()) {
             EventKeyHandler eventKeyHandler = iterator.next();
-            if (eventKeyHandler.getEventKey().equalsIgnoreCase(eventMessage.getEvent())) {
+            if (eventKeyHandler.getEventKey().equalsIgnoreCase(eventMessage.getEventKey())) {
                 return eventKeyHandler.handleEventKey(eventMessage);
             }
         }

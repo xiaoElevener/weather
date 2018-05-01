@@ -24,4 +24,12 @@ public interface DealHistoryService {
      * @return
      */
     List<DailyStatisticalVo> getDailyStatistical();
+
+    /**
+     * 获取用户最近交易记录
+     *
+     * @param userId
+     * @return
+     */
+    List<DealHistoryVo> getRecentlyDealHistory(Long userId);
 }

@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @date 2018-04-26 19:50
  */
 @Data
-@ApiModel("每日统计数据")
+@ApiModel(value = "DailyStatisticalVo", description = "每日统计数据")
 public class DailyStatisticalVo implements Serializable {
 
     private static final long serialVersionUID = 8252567325046078406L;

@@ -9,7 +9,7 @@ import lombok.Data;
  * @author xiao_elevener
  * @date 2018-04-23 10:51
  */
-@ApiModel("用户")
+@ApiModel(value = "AccountVo", description = "账户vo")
 @Data
 public class AccountVo extends AbstractVo{
 

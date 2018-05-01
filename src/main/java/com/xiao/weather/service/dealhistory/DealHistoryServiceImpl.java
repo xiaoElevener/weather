@@ -44,6 +44,8 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
 
     private final String STATISTICAL_DAY = "statistical_day";
 
+    private final String DEAL_HISTORY_COUNT = "deal_history_count";
+
     @Override
     public void create(DealHistoryVo dealHistoryVo) {
         setUserId(dealHistoryVo);
@@ -61,6 +63,12 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
         return dealHistoryDao.getDailyStatistical(day);
     }
 
+    @Override
+    public List<DealHistoryVo> getRecentlyDealHistory(Long userId) {
+        PredefinedCode predefinedCode = predefinedCodeDao.findByCode(DEAL_HISTORY_COUNT);
+        return dealHistoryDao.getDealHistoryByUserId(userId, Integer.valueOf(predefinedCode.getValue()));
+    }
+
     /**
      * 通过loginName找到userId
      *
@@ -74,7 +82,6 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
             throw new BizException("用户异常" + dealHistoryVo.getLoginName());
         }
         dealHistoryVo.setUserId(result.get(0).getId());
-
     }
 
     /**

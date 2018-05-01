@@ -29,7 +29,7 @@ public class LeaveMessageServiceImpl extends AbstractServiceImpl implements Leav
     public List<LeaveMessageVo> findLeaveMessagesBySo(LeaveMessageSo leaveMessageSo) {
         List<LeaveMessageVo> list = leaveMessageDao.selectPaginationVoBySo(leaveMessageSo);
         list.stream().forEach(message -> {
-            message.setUserName(userDao.findUserNameByOpenId(message.getOpenId()));
+            message.setUserName(userDao.findUserByOpenId(message.getOpenId()).getUserName());
             if (StringUtils.isEmpty(message.getUserName())) {
                 message.setUserName("匿名");
             }

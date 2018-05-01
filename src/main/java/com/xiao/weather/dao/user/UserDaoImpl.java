@@ -41,11 +41,11 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
         sqlSession.update(getStatementPrefix() + UPDATE_LAST_ATTEMPTED_LOGIN_TIME, loginName);
     }
 
-    private final String FIND_USER_NAME_BY_OPEN_ID = "findUserNameByOpenId";
+    private final String FIND_USER_BY_OPEN_ID = "findUserByOpenId";
 
     @Override
-    public String findUserNameByOpenId(String openId) {
-        return sqlSession.selectOne(getStatementPrefix() + FIND_USER_NAME_BY_OPEN_ID, openId);
+    public User findUserByOpenId(String openId) {
+        return sqlSession.selectOne(getStatementPrefix() + FIND_USER_BY_OPEN_ID, openId);
     }
 }
 
