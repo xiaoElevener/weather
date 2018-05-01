@@ -21,4 +21,27 @@ public class RedisUtil {
     public void set(String key, Object value) {
         redisTemplate.opsForValue().set(key, value);
     }
+
+    /**
+     * 判断sortSet集合中是否存在value
+     * 通过排名rank判断，如果为空则不存在这个值
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    public Boolean sortSetIsMember(String key, Object value) {
+        return redisTemplate.opsForZSet().rank(key, value) != null;
+    }
+
+    /**
+     * 给SortSet集合添加元素
+     * 定时器定时删除过期数据
+     *
+     * @param key
+     * @param values
+     */
+    public void sortSetAdd(String key, Object... values) {
+        redisTemplate.opsForZSet().add(key, values, System.currentTimeMillis());
+    }
 }

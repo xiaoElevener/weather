@@ -3,22 +3,11 @@ package com.xiao.weather.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xiao.weather.common.constant.RedisProperties;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.cache.RedisCache;
-import org.springframework.data.redis.cache.RedisCacheConfiguration;
-import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.RedisPassword;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -30,17 +19,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @EnableCaching
 public class RedisCacheConfig extends CachingConfigurerSupport {
-
-    @Autowired
-    private RedisProperties redisProperties;
-
-
-//    @Bean
-//    public CacheManager cacheManager(RedisConnectionFactory factory) {
-//        RedisCacheManager redisCacheManager = RedisCacheManager.create(factory);
-//        return redisCacheManager;
-//    }
-
+    //TODO SpringCache
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
@@ -59,15 +38,4 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
         return template;
     }
 
-    @Bean
-    public RedisConnectionFactory redisConnectionFactory() {
-        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-        configuration.setDatabase(redisProperties.getDatabase());
-        configuration.setHostName(redisProperties.getHost());
-        configuration.setPort(redisProperties.getPort());
-        configuration.setPassword(RedisPassword.of(redisProperties.getPassword()));
-
-        RedisConnectionFactory redisConnectionFactory =new JedisConnectionFactory(configuration);
-        return redisConnectionFactory;
-    }
 }
