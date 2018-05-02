@@ -1,5 +1,6 @@
 package com.xiao.weather.service.dealhistory;
 
+import com.xiao.weather.common.so.dealhistory.DealHistorySo;
 import com.xiao.weather.common.vo.dealhistory.DailyStatisticalVo;
 import com.xiao.weather.common.vo.dealhistory.DealHistoryVo;
 
@@ -32,4 +33,18 @@ public interface DealHistoryService {
      * @return
      */
     List<DealHistoryVo> getRecentlyDealHistory(Long userId);
+
+
+    /**
+     * 条件分页换取交易记录
+     *
+     * @param dealHistorySo
+     * @return
+     */
+    List<DealHistoryVo> findDealHistoryVosBySo(DealHistorySo dealHistorySo);
+
+    /**
+     *
+     */
+    Integer countByDealHistorySo(DealHistorySo dealHistorySo);
 }

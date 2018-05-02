@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @ApiModel("交易记录")
 @Data
-public class DealHistoryVo extends AbstractVo{
+public class DealHistoryVo extends AbstractVo {
 
     @ApiModelProperty("账户id")
     private Long accountId;
@@ -22,6 +22,9 @@ public class DealHistoryVo extends AbstractVo{
 
     @ApiModelProperty("用户账号")
     private String loginName;
+
+    @ApiModelProperty("用户姓名")
+    private String userName;
 
     @ApiModelProperty("金额")
     private Double money;

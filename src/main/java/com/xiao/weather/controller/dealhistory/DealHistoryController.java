@@ -1,5 +1,6 @@
 package com.xiao.weather.controller.dealhistory;
 
+import com.xiao.weather.common.so.dealhistory.DealHistorySo;
 import com.xiao.weather.common.vo.ResultVO;
 import com.xiao.weather.common.vo.dealhistory.DailyStatisticalVo;
 import com.xiao.weather.common.vo.dealhistory.DealHistoryVo;
@@ -38,6 +39,15 @@ public class DealHistoryController {
     public ResultVO<DailyStatisticalVo> getDailyStatistical() {
         ResultVO<DailyStatisticalVo> resultVO = new ResultVO<>();
         resultVO.setVoList(dealHistoryService.getDailyStatistical());
+        return resultVO;
+    }
+
+    @GetMapping(value = "/dealHistoryList")
+    @ApiOperation("获取交易记录列表")
+    public ResultVO<DealHistoryVo> listDealHistory(DealHistorySo dealHistorySo) {
+        ResultVO<DealHistoryVo> resultVO = new ResultVO<>();
+        resultVO.setVoList(dealHistoryService.findDealHistoryVosBySo(dealHistorySo));
+        resultVO.setTotal(dealHistoryService.countByDealHistorySo(dealHistorySo));
         return resultVO;
     }
 }

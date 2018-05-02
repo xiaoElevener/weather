@@ -2,6 +2,7 @@ package com.xiao.weather.service.dealhistory;
 
 import com.xiao.weather.common.constant.DealType;
 import com.xiao.weather.common.exception.BizException;
+import com.xiao.weather.common.so.dealhistory.DealHistorySo;
 import com.xiao.weather.common.so.user.UserSo;
 import com.xiao.weather.common.vo.dealhistory.DailyStatisticalVo;
 import com.xiao.weather.common.vo.dealhistory.DealHistoryVo;
@@ -67,6 +68,16 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
     public List<DealHistoryVo> getRecentlyDealHistory(Long userId) {
         PredefinedCode predefinedCode = predefinedCodeDao.findByCode(DEAL_HISTORY_COUNT);
         return dealHistoryDao.getDealHistoryByUserId(userId, Integer.valueOf(predefinedCode.getValue()));
+    }
+
+    @Override
+    public List<DealHistoryVo> findDealHistoryVosBySo(DealHistorySo dealHistorySo) {
+        return dealHistoryDao.selectPaginationVoBySo(dealHistorySo);
+    }
+
+    @Override
+    public Integer countByDealHistorySo(DealHistorySo dealHistorySo) {
+        return dealHistoryDao.selectCountBySo(dealHistorySo);
     }
 
     /**
