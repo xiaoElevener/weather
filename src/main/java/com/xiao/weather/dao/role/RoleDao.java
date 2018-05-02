@@ -1,8 +1,10 @@
 package com.xiao.weather.dao.role;
 
-import java.util.List;
+import com.xiao.weather.common.vo.role.RoleVo;
 import com.xiao.weather.dao.core.Dao;
 import com.xiao.weather.entity.role.Role;
+
+import java.util.List;
 
 /**
  * @author xiao_elevener
@@ -13,7 +15,7 @@ public interface RoleDao extends Dao<Role> {
      * @param id
      * @return
      */
-    List<Role> findRolesByUserId(Long id);
+    List<RoleVo> findRolesByUserId(Long id);
 }
 
 

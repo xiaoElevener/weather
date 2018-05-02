@@ -32,6 +32,11 @@ public class UserServiceImplTest extends WeatherApplicationTests{
 
     @Test
     public void login() throws Exception {
+        UserVo userVo = new UserVo();
+        userVo.setLoginName("BG329474");
+        userVo.setPassword("123456");
+        UserVo user = userService.login(userVo);
+        Assert.notNull(user, "用户非空");
     }
 
     @Test

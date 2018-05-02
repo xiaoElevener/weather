@@ -2,8 +2,10 @@ package com.xiao.weather.service.user;
 
 import com.xiao.weather.common.exception.BizException;
 import com.xiao.weather.common.so.user.UserSo;
+import com.xiao.weather.common.vo.role.RoleVo;
 import com.xiao.weather.common.vo.user.UserVo;
 import com.xiao.weather.dao.account.AccountDao;
+import com.xiao.weather.dao.menu.MenuDao;
 import com.xiao.weather.dao.role.RoleDao;
 import com.xiao.weather.dao.user.UserDao;
 import com.xiao.weather.entity.account.Account;
@@ -14,7 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author xiao_elevener
@@ -31,6 +37,10 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
 
     @Autowired
     private AccountDao accountDao;
+
+    @Autowired
+    private MenuDao menuDao;
+
 
     @Override
     public void createUser(UserVo userVo) {
@@ -124,6 +134,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
     public UserVo login(UserVo userVo) {
         userVo.setLockVersion(null);
         UserVo user = userDao.findUser(userVo);
+        setPaths(user);
         updateLastAttemptedLoginTime(userVo.getLoginName());
         return user;
 
@@ -161,5 +172,19 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
         userDao.updateLastAttemptedLoginTime(loginName);
     }
 
+
+    private void setPaths(UserVo userVo) {
+        if (userVo == null) {
+            return;
+        }
+        Set<String> set = new HashSet<>();
+        List<RoleVo> roleVoList = roleDao.findRolesByUserId(userVo.getId());
+        userVo.setRoles(roleVoList);
+        if (roleVoList != null) {
+            set.addAll(menuDao.findPaths(roleVoList.stream().map(roleVo -> roleVo.getId()).collect(Collectors.toList())));
+        }
+        userVo.setPaths(new ArrayList<>(set));
+
+    }
 
 }

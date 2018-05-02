@@ -34,6 +34,7 @@ public class DealHistoryController {
     }
 
     @GetMapping("/dailyStatistical")
+    @ApiOperation(value = "获取每日统计数据")
     public ResultVO<DailyStatisticalVo> getDailyStatistical() {
         ResultVO<DailyStatisticalVo> resultVO = new ResultVO<>();
         resultVO.setVoList(dealHistoryService.getDailyStatistical());

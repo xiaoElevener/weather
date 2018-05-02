@@ -71,7 +71,7 @@ public class UserController {
             resultVO.setSuccess(Boolean.FALSE);
             resultVO.setMessage("用户名密码错误!");
         } else {
-            resultVO.setVo(userVo);
+            resultVO.setVo(user);
         }
         return resultVO;
     }

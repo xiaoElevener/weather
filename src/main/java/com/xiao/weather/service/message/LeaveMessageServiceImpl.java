@@ -4,8 +4,8 @@ import com.xiao.weather.common.so.message.LeaveMessageSo;
 import com.xiao.weather.common.vo.message.LeaveMessageVo;
 import com.xiao.weather.dao.message.LeaveMessageDao;
 import com.xiao.weather.dao.user.UserDao;
+import com.xiao.weather.entity.user.User;
 import com.xiao.weather.service.core.AbstractServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,9 +29,11 @@ public class LeaveMessageServiceImpl extends AbstractServiceImpl implements Leav
     public List<LeaveMessageVo> findLeaveMessagesBySo(LeaveMessageSo leaveMessageSo) {
         List<LeaveMessageVo> list = leaveMessageDao.selectPaginationVoBySo(leaveMessageSo);
         list.stream().forEach(message -> {
-            message.setUserName(userDao.findUserByOpenId(message.getOpenId()).getUserName());
-            if (StringUtils.isEmpty(message.getUserName())) {
+            User user = userDao.findUserByOpenId(message.getOpenId());
+            if (user == null) {
                 message.setUserName("匿名");
+            } else {
+                message.setUserName(user.getUserName());
             }
         });
         return list;
