@@ -8,6 +8,12 @@ import com.xiao.weather.entity.message.LeaveMessage;
  */
 public interface LeaveMessageDao extends Dao<LeaveMessage> {
 
+    /**
+     * 获取今日微信留言数
+     * @return
+     */
+    Integer getTodayCount();
+
 }
 
 

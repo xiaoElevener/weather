@@ -234,5 +234,9 @@
     <select id="getDealHistoryByUserId" resultMap="DealHistoryVoResultMap">
         select * from deal_history where user_id = #{userId} order by created_time desc limit #{limit}
     </select>
+
+    <select id="getTodayCount" resultType="int">
+        select count(*) from deal_history where  created_time > curdate()
+    </select>
     <!-- business end -->
 </mapper>

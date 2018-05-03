@@ -286,5 +286,9 @@
         select * from user where open_id = #{openId}
     </select>
 
+    <select id="wechatUser" resultType="int">
+        select count(*) from user where open_id != null
+    </select>
+
     <!-- business end -->
 </mapper>

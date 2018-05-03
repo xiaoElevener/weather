@@ -48,6 +48,8 @@ public interface UserDao extends Dao<User> {
      * @return
      */
     User findUserByOpenId(String openId);
+
+    Integer wechatUser();
 }
 
 

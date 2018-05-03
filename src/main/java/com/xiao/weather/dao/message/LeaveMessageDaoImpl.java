@@ -10,6 +10,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class LeaveMessageDaoImpl extends BaseDao<LeaveMessage> implements LeaveMessageDao {
 
+    private final String GET_TODAY_COUNT = "getTodayCount";
+
+    @Override
+    public Integer getTodayCount() {
+        return sqlSession.selectOne(getStatementPrefix() + GET_TODAY_COUNT);
+    }
 }
 
 

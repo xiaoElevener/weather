@@ -28,6 +28,12 @@ public interface DealHistoryDao extends Dao<DealHistory> {
      * @return
      */
     List<DealHistoryVo> getDealHistoryByUserId(Long userId, Integer limit);
+
+    /**
+     * 获取今日的交易数
+     * @return
+     */
+    Integer getTodayCount();
 }
 
 

@@ -47,6 +47,14 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     public User findUserByOpenId(String openId) {
         return sqlSession.selectOne(getStatementPrefix() + FIND_USER_BY_OPEN_ID, openId);
     }
+
+
+    private final String WECHAT_USER = "wechatUser";
+
+    @Override
+    public Integer wechatUser() {
+        return sqlSession.selectOne(getStatementPrefix() + WECHAT_USER);
+    }
 }
 
 

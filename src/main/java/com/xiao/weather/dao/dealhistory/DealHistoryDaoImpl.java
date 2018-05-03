@@ -33,6 +33,13 @@ public class DealHistoryDaoImpl extends BaseDao<DealHistory> implements DealHist
         return sqlSession.selectList(getStatementPrefix() + GET_DEAL_HISTORY_BY_USER_ID, map);
     }
 
+    private final String GET_TODAY_COUNT = "getTodayCount";
+
+    @Override
+    public Integer getTodayCount() {
+        return sqlSession.selectOne(getStatementPrefix() + GET_TODAY_COUNT);
+    }
+
 
 }
 
