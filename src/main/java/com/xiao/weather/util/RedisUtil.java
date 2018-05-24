@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author xiao_elevener
  * @date 2018-04-30 18:43
@@ -20,6 +22,11 @@ public class RedisUtil {
 
     public void set(String key, Object value) {
         redisTemplate.opsForValue().set(key, value);
+    }
+
+    public void set(String key, Object value, final long timeout, final TimeUnit unit) {
+        redisTemplate.opsForValue().set(key, value);
+        redisTemplate.expire(key, timeout, unit);
     }
 
     /**

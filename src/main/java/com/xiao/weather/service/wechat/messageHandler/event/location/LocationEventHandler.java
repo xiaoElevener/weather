@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import weixin.popular.bean.message.EventMessage;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * 定位事件处理器
  *
@@ -21,6 +23,13 @@ public class LocationEventHandler implements EventHandler {
 
     public final static String LOCATION_KEY_PREFIX = "location-";
 
+    /**
+     * 默认过期时间
+     */
+    private final long TIMEOUT = 60;
+
+    private final TimeUnit TIME_UNIT = TimeUnit.SECONDS;
+
     @Autowired
     private RedisUtil redisUtil;
 
@@ -33,7 +42,7 @@ public class LocationEventHandler implements EventHandler {
     public EventMessage handleEvent(EventMessage eventMessage) {
         WechatLocation wechatLocation = getWechatLocation(eventMessage);
         //将用户地理位置缓存到redis
-        redisUtil.set(LOCATION_KEY_PREFIX + eventMessage.getFromUserName(), wechatLocation);
+        redisUtil.set(LOCATION_KEY_PREFIX + eventMessage.getFromUserName(), wechatLocation, TIMEOUT, TIME_UNIT);
         return null;
     }
 
