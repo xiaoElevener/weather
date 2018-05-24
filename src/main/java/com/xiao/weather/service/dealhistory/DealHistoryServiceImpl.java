@@ -50,7 +50,7 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
 
     @Override
     public AccountVo create(DealHistoryVo dealHistoryVo) {
-        setUserId(dealHistoryVo);
+        setUserIdAndAccountId(dealHistoryVo);
         //先插入，后更新
         dealHistoryDao.insert(dozer.convert(dealHistoryVo, DealHistory.class));
         return accountOptions(dealHistoryVo);
@@ -83,11 +83,11 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
     }
 
     /**
-     * 通过loginName找到userId
+     * 通过loginName找到userId,accountId
      *
      * @param dealHistoryVo
      */
-    public void setUserId(DealHistoryVo dealHistoryVo) {
+    public void setUserIdAndAccountId(DealHistoryVo dealHistoryVo) {
         UserSo userSo = new UserSo();
         userSo.setLoginName(dealHistoryVo.getLoginName());
         List<UserVo> result = userDao.selectVoBySo(userSo);
@@ -95,6 +95,11 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
             throw new BizException("用户异常" + dealHistoryVo.getLoginName());
         }
         dealHistoryVo.setUserId(result.get(0).getId());
+        Account account = accountDao.findByUserId(result.get(0).getId());
+        if (account == null) {
+            throw new BizException("用户异常" + dealHistoryVo.getLoginName());
+        }
+        dealHistoryVo.setAccountId(account.getId());
     }
 
     /**

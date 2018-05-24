@@ -105,7 +105,7 @@
         <!-- 10 -->#{locked},
         <!-- 11 -->#{lastAttemptedLoginTime},
         <!-- 12 -->#{passwordErrorTimes},
-        <!-- 13 -->#{openId},
+        <!-- 13 -->#{openId}
         )
         <selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
             select LAST_INSERT_ID()
