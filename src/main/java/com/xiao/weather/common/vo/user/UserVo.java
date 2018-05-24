@@ -51,4 +51,7 @@ public class UserVo extends AbstractVo implements Serializable {
 
     @ApiModelProperty("用户的openId")
     private String openId;
+
+    @ApiModelProperty("余额")
+    private String balance;
 }

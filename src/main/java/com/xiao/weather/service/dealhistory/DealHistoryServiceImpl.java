@@ -4,6 +4,7 @@ import com.xiao.weather.common.constant.DealType;
 import com.xiao.weather.common.exception.BizException;
 import com.xiao.weather.common.so.dealhistory.DealHistorySo;
 import com.xiao.weather.common.so.user.UserSo;
+import com.xiao.weather.common.vo.account.AccountVo;
 import com.xiao.weather.common.vo.dealhistory.DailyStatisticalVo;
 import com.xiao.weather.common.vo.dealhistory.DealHistoryVo;
 import com.xiao.weather.common.vo.user.UserVo;
@@ -48,10 +49,11 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
     private final String DEAL_HISTORY_COUNT = "deal_history_count";
 
     @Override
-    public void create(DealHistoryVo dealHistoryVo) {
+    public AccountVo create(DealHistoryVo dealHistoryVo) {
         setUserId(dealHistoryVo);
-        accountOptions(dealHistoryVo);
+        //先插入，后更新
         dealHistoryDao.insert(dozer.convert(dealHistoryVo, DealHistory.class));
+        return accountOptions(dealHistoryVo);
     }
 
     @Override
@@ -100,7 +102,7 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
      *
      * @param dealHistoryVo
      */
-    public void accountOptions(DealHistoryVo dealHistoryVo) {
+    public AccountVo accountOptions(DealHistoryVo dealHistoryVo) {
         Account account = accountDao.findByUserId(dealHistoryVo.getUserId());
         if (account == null) {
             throw new BizException("账户异常");
@@ -119,6 +121,7 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
         } else if (dealHistoryVo.getDealType().equals(DealType.RECHARGE)) {
             account.setBalance(account.getBalance() + dealHistoryVo.getMoney());
         }
-        accountDao.update(account);
+        account = accountDao.update(account);
+        return dozer.convert(account, AccountVo.class);
     }
 }

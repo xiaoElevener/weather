@@ -68,7 +68,8 @@
         <result property="passwordErrorTimes" column="password_error_times"/>
         <!--14 -->
         <result property="openId" column="open_id"/>
-
+        <!--15 -->
+        <result property="balance" column="balance"/>
     </resultMap>
     <!-- resultMap end -->
 
@@ -165,18 +166,18 @@
     </sql>
 
     <delete id="delete">
-		delete from user where id = #{id}
-	</delete>
+        delete from user where id = #{id}
+    </delete>
 
     <select id="find" resultMap="UserResultMap">
-		select * from user where id
-		= #{id}
-	</select>
+        select * from user where id
+        = #{id}
+    </select>
 
     <select id="findVo" resultMap="UserVoResultMap">
-		select * from user where
-		id = #{id}
-	</select>
+        select * from user where
+        id = #{id}
+    </select>
 
     <select id="selectBySo" resultMap="UserResultMap">
         select t.* from user t
@@ -184,7 +185,7 @@
     </select>
 
     <select id="selectVoBySo" resultMap="UserVoResultMap">
-        select t.* from user t
+        select t.*,a.balance from user t left join account a on t.id = a.user_id
         <include refid="soSqlFilter"/>
     </select>
 
@@ -263,15 +264,15 @@
 
     <!-- business begin -->
     <update id="lockUser">
-		update user set locked = true where id=#{id}
-	</update>
+        update user set locked = true where id=#{id}
+    </update>
 
     <select id="findUser" resultMap="UserVoResultMap">
-		select * from user
-		where login_name = #{loginName}
-		and password = #{password}
-		and locked = 0
-	</select>
+        select * from user
+        where login_name = #{loginName}
+        and password = #{password}
+        and locked = 0
+    </select>
 
     <select id="getLoginNameList" resultType="String">
         select login_name from user

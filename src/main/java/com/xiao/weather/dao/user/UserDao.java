@@ -49,6 +49,11 @@ public interface UserDao extends Dao<User> {
      */
     User findUserByOpenId(String openId);
 
+    /**
+     * 查询绑定的微信号
+     *
+     * @return
+     */
     Integer wechatUser();
 }
 

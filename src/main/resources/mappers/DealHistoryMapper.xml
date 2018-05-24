@@ -155,8 +155,9 @@
 
     <select id="selectVoBySo" resultMap="DealHistoryVoResultMap">
         select t.*,u.user_name,u.login_name from deal_history t
+        left join user u on t.user_id = u.id
         <include refid="soSqlFilter"/>
-        left join user u on t.user_id = u.id order by t.id DESC
+        order by t.id DESC
     </select>
 
     <select id="selectCountBySo" resultType="int">
@@ -219,7 +220,12 @@
             <if test="description !=null ">
                 and t.description = #{description}
             </if>
-
+            <if test="startDate !=null ">
+                <![CDATA[  and t.created_time > date_format(#{startDate},'%y-%m-%d') ]]>
+            </if>
+            <if test="endDate !=null ">
+                <![CDATA[  and t.created_time <= date_format(#{endDate},'%y-%m-%d') ]]>
+            </if>
         </where>
     </sql>
     <!-- CRUD end -->

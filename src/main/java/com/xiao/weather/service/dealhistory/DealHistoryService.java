@@ -1,6 +1,7 @@
 package com.xiao.weather.service.dealhistory;
 
 import com.xiao.weather.common.so.dealhistory.DealHistorySo;
+import com.xiao.weather.common.vo.account.AccountVo;
 import com.xiao.weather.common.vo.dealhistory.DailyStatisticalVo;
 import com.xiao.weather.common.vo.dealhistory.DealHistoryVo;
 
@@ -16,7 +17,7 @@ public interface DealHistoryService {
      *
      * @param dealHistoryVo
      */
-    void create(DealHistoryVo dealHistoryVo);
+    AccountVo create(DealHistoryVo dealHistoryVo);
 
 
     /**
@@ -43,8 +44,11 @@ public interface DealHistoryService {
      */
     List<DealHistoryVo> findDealHistoryVosBySo(DealHistorySo dealHistorySo);
 
+
     /**
-     *
+     * 条件分页换取交易记录数量
+     * @param dealHistorySo
+     * @return
      */
     Integer countByDealHistorySo(DealHistorySo dealHistorySo);
 }

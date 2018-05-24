@@ -1,5 +1,6 @@
 package com.xiao.weather.service.weather;
 
+import com.xiao.weather.common.vo.weather.NowWeatherVO;
 import com.xiao.weather.entity.location.WechatLocation;
 
 /**
@@ -14,4 +15,10 @@ public interface WeatherService {
      */
     String getNowWeather(WechatLocation wechatLocation);
 
+    /**
+     * 获取系统天气
+     *
+     * @return
+     */
+    NowWeatherVO getSystemWeather();
 }

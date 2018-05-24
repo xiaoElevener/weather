@@ -36,8 +36,6 @@ public class DealHistoryHandler implements EventKeyHandler {
     @Autowired
     private DealHistoryService dealHistoryService;
 
-    @Autowired
-    private DateUtil dateUtil;
 
     @Override
     public String getEventKey() {
@@ -66,7 +64,7 @@ public class DealHistoryHandler implements EventKeyHandler {
     private String btfList(List<DealHistoryVo> dealHistoryVoList) {
         StringBuilder string = new StringBuilder();
         dealHistoryVoList.forEach(dealHistoryVo -> {
-            string.append("日期:" + dateUtil.date2LocalDateTime(dealHistoryVo.getCreatedTime()) + " ");
+            string.append("日期:" + DateUtil.date2LocalDateTime(dealHistoryVo.getCreatedTime()) + " ");
             if (dealHistoryVo.getDealType().equals(DealType.CONSUME)) {
                 string.append("消费了");
             } else {

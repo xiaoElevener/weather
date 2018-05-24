@@ -2,6 +2,8 @@ package com.xiao.weather.entity.weather;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 天气
  *
@@ -9,8 +11,9 @@ import lombok.Data;
  * @date 2018-03-19 22:49
  */
 @Data
-public class Weather {
+public class Weather implements Serializable {
 
+    private static final long serialVersionUID = -8675351711484429985L;
     /**
      * 天气现象文字
      */
