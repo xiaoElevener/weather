@@ -82,5 +82,14 @@ public class UserController {
         return new ResultVO<>(userService.getLoginNameList());
     }
 
-
+    @PostMapping(value = "/user/bind")
+    @ApiOperation("账号绑定")
+    public ResultVO<String> bind(@RequestBody UserVo userVo) {
+        ResultVO<String> resultVO = new ResultVO<>();
+        if (!userService.bind(userVo)) {
+            resultVO.setSuccess(Boolean.FALSE);
+            resultVO.setMessage("用户名密码错误！");
+        }
+        return resultVO;
+    }
 }

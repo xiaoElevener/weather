@@ -163,6 +163,25 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
         return userDao.getLoginNameList();
     }
 
+    @Override
+    public Boolean bind(UserVo userVo) {
+        String openId = userVo.getOpenId();
+        if (openId == null) {
+            throw new BizException("未能关联微信账号！");
+        }
+        userVo.setOpenId(null);
+        UserVo vo = userDao.findUser(userVo);
+        if (vo != null) {
+            if (vo.getOpenId() != null) {
+                throw new BizException("该账号已被关联！");
+            }
+            vo.setOpenId(openId);
+            userDao.update(dozer.convert(vo, User.class));
+            return true;
+        }
+        return false;
+    }
+
     /**
      * 更新用户尝试登录时间
      *

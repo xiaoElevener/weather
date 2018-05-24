@@ -1,6 +1,9 @@
 package com.xiao.weather.controller.wechat;
 
+import com.xiao.weather.common.vo.ResultVO;
 import com.xiao.weather.service.wechat.messageHandler.MessageHandlerCenter;
+import com.xiao.weather.service.wechat.sns.SnsService;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,10 +26,14 @@ import java.io.PrintWriter;
  */
 @Controller
 @Slf4j
+@Api(value = "WechatController", description = "微信接口")
 public class WechatController {
 
     @Autowired
     private MessageHandlerCenter messageHandlerCenter;
+
+    @Autowired
+    private SnsService snsService;
 
     private final String SUCCESS = "success";
 
@@ -45,7 +52,6 @@ public class WechatController {
     }
 
 
-
     private void printResponse(PrintWriter writer, EventMessage responseMessage) {
         String response = responseMessage == null ? SUCCESS : XMLConverUtil.convertToXML(responseMessage);
         log.info("response={}", response);
@@ -53,5 +59,10 @@ public class WechatController {
         writer.close();
     }
 
+    @ResponseBody
+    @GetMapping("/openId")
+    public ResultVO<String> getOpenId(String code) {
+        return new ResultVO<>(snsService.getOpenId(code));
+    }
 
 }

@@ -7,6 +7,7 @@ import com.xiao.weather.common.vo.weather.XinZhiResultVO;
 import com.xiao.weather.dao.predefinedcode.PredefinedCodeDao;
 import com.xiao.weather.entity.location.WechatLocation;
 import com.xiao.weather.entity.predefinedcode.PredefinedCode;
+import com.xiao.weather.service.core.AbstractServiceImpl;
 import com.xiao.weather.util.WeatherRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import java.util.Map;
  * @date 2018-03-25 0:23
  */
 @Service
-public class WeatherServiceImpl implements WeatherService {
+public class WeatherServiceImpl extends AbstractServiceImpl implements WeatherService {
 
     private final String LOCATION = "location";
 

@@ -28,7 +28,7 @@ public class RedisTimer {
     /**
      * 定时移除msgId
      */
-    @Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0 0 0/1 * * ? ")
     public void expireSet() {
         redisTemplate.opsForZSet().removeRangeByScore(MessageHandlerCenter.MSG_KEY, 0, System.currentTimeMillis() - EXPIRE_TIME);
     }
