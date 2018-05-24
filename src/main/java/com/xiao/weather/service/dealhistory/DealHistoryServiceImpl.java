@@ -62,7 +62,7 @@ public class DealHistoryServiceImpl extends AbstractServiceImpl implements DealH
         if (predefinedCode == null) {
             throw new BizException("预定义没有维护统计天数字段");
         }
-        Integer day = Integer.valueOf(predefinedCode.getValue());
+        Integer day = Integer.valueOf(predefinedCode.getValue()) - 1;
         return dealHistoryDao.getDailyStatistical(day);
     }
 
