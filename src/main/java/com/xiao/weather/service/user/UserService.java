@@ -33,6 +33,11 @@ public interface UserService {
     UserVo login(UserVo userVo);
 
     /**
+     * 用户登出
+     */
+    void logout();
+
+    /**
      * 条件查询用户列表
      *
      * @return

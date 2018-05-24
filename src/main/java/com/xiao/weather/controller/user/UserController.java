@@ -76,6 +76,13 @@ public class UserController {
         return resultVO;
     }
 
+    @GetMapping(value = "/user/logout")
+    @ApiOperation("用户登出")
+    public ResultVO<String> logout() {
+        userService.logout();
+        return new ResultVO<>();
+    }
+
     @GetMapping(value = "/user/loginNameList")
     @ApiOperation("获取登录名")
     public ResultVO<String> getLoginNameList() {

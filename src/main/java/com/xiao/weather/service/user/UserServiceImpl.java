@@ -1,6 +1,8 @@
 package com.xiao.weather.service.user;
 
 import com.xiao.weather.common.exception.BizException;
+import com.xiao.weather.common.security.SecurityContext;
+import com.xiao.weather.common.security.SecurityContextHolder;
 import com.xiao.weather.common.so.user.UserSo;
 import com.xiao.weather.common.vo.role.RoleVo;
 import com.xiao.weather.common.vo.user.UserVo;
@@ -136,8 +138,15 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
         UserVo user = userDao.findUser(userVo);
         setPaths(user);
         updateLastAttemptedLoginTime(userVo.getLoginName());
+        updateContext(user);
         return user;
 
+    }
+
+    @Override
+    public void logout() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        SecurityContextHolder.clearContext();
     }
 
     @Override
@@ -206,4 +215,17 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserService 
 
     }
 
+    /**
+     * 更新登录状态
+     *
+     * @param user
+     */
+    private void updateContext(UserVo user) {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        if (securityContext == null) {
+            securityContext = new SecurityContext();
+            SecurityContextHolder.initContext(securityContext);
+        }
+        securityContext.setUser(dozer.convert(user, User.class));
+    }
 }
