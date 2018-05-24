@@ -166,8 +166,8 @@
     </sql>
 
     <delete id="delete">
-        delete from user where id = #{id}
-    </delete>
+		delete from user where id = #{id}
+	</delete>
 
     <select id="find" resultMap="UserResultMap">
         select * from user where id
@@ -288,7 +288,7 @@
     </select>
 
     <select id="wechatUser" resultType="int">
-        select count(*) from user where open_id != null
+        select count(*) from user where open_id is not null
     </select>
 
     <!-- business end -->
